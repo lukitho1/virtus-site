@@ -2449,6 +2449,16 @@ route();
   $("calcForm").addEventListener("input", calc);
   $("calcForm").addEventListener("change", calc);
   $("calcForm").addEventListener("submit", e=>e.preventDefault());
+  // Prefill vindo das fichas de protocolo ("Abrir na calculadora")
+  function prefill(){
+    let x = null; try{ x = JSON.parse(localStorage.getItem("virtus-calc-prefill") || "null"); localStorage.removeItem("virtus-calc-prefill"); }catch(e){}
+    if(!x) return;
+    if(x.mg){ $("cMg").value = String(x.mg).replace(".", ","); }
+    if(x.water){ $("cWater").value = String(x.water).replace(".", ","); }
+    $("cPresets").querySelectorAll("button").forEach(o=>o.setAttribute("aria-pressed","false"));
+    $("calcForm").dispatchEvent(new Event("input", {bubbles:true}));
+  }
+  prefill(); window.addEventListener("hashchange", prefill);
 
   function syringe(units, cap){
     cap = cap || 100; const x0 = 96, w = 300, y = 30, h = 30;
@@ -2877,6 +2887,7 @@ document.addEventListener("click", e=>{
 document.addEventListener("keydown", e=>{ if(e.key === "Escape" && !cartEl.hidden) closeCart(); });
 window.addEventListener("hashchange", ()=>{ if(!cartEl.hidden) closeCart(); });
 renderCart();
+if(location.hash === "#lista"){ history.replaceState(null, "", location.pathname + location.search); openCart(); }
 
 /* Copiar número */
 document.getElementById("copyPhone").addEventListener("click", function(){
