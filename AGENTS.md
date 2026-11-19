@@ -4,6 +4,14 @@ Site estático do catálogo Virtus Peptides, publicado pelo **GitHub Pages** a p
 
 O domínio foi registrado no Netlify e o **DNS continua no Netlify** (4 registros A `185.199.108-111.153` no domínio e `www` como CNAME para `lukitho1.github.io`). O Netlify não hospeda mais o site: não publique nada por lá.
 
+## Como continuar o trabalho de outra IA
+
+- Ao começar, leia este arquivo e confira os pull requests (PRs) abertos. Para uma tarefa nova, crie uma branch a partir da `main` atualizada.
+- Se a tarefa já tem um PR, abra a branch indicada nele, sincronize com o GitHub e confira as alterações e os comentários mais recentes. Continue na mesma branch e no mesmo PR.
+- Antes de trocar de IA, salve o progresso em um commit, envie a branch ao GitHub e deixe no PR um resumo curto do que foi feito, do que foi testado e do próximo passo. Abra o PR como rascunho se ainda houver trabalho. Como o repositório é público, mantenha dados de clientes e informações comerciais internas fora desse resumo.
+- As duas IAs podem trabalhar ao mesmo tempo em tarefas diferentes, cada uma em sua branch. Se ambas precisarem editar o mesmo trecho, combinem a ordem. Ao retomar, incorpore os commits mais recentes antes de enviar novas alterações.
+- Quando a alteração estiver pronta, peça a revisão do responsável pelo site. O merge na `main` dispara a publicação pelo GitHub Pages.
+
 ## Estrutura
 - `index.html`: tudo do catálogo num arquivo só (HTML, CSS em `<style>` e JS em `<script>`):
   - topo, banner da Black Week e carrossel de blends;
