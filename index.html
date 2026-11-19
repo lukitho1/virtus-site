@@ -861,8 +861,11 @@ html.black .orbs i:nth-child(3){background:radial-gradient(circle,#5a0a18 0%,tra
 body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.035;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 /* vitrine viva */
-.showcase{position:relative;z-index:1;margin-top:28px;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.sc-track{display:flex;gap:14px;width:max-content;padding-block:6px 10px;animation:scRun calc(var(--n,20) * 3.2s) linear infinite}
+.showcase{position:relative;z-index:1;margin-top:28px;overflow:hidden}
+.showcase::before,.showcase::after{content:"";position:absolute;top:0;bottom:0;width:7%;min-width:28px;z-index:2;pointer-events:none}
+.showcase::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.showcase::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.sc-track{display:flex;gap:14px;width:max-content;padding-block:6px 10px;animation:scRun calc(var(--n,20) * 3.2s) linear infinite;-webkit-transform:translateZ(0);will-change:transform}
 .showcase:hover .sc-track{animation-play-state:paused}
 @keyframes scRun{to{transform:translateX(calc(-50% - 7px))}}
 .sc-item{flex:none;width:118px;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none}
@@ -954,6 +957,16 @@ footer .wrap{position:relative;padding-block:56px 40px!important;gap:34px!import
 .foot-bottom .disc{margin:0;max-width:80ch}
 .foot-bottom small{color:var(--muted);font-size:12.5px}
 @media (prefers-reduced-motion:reduce){.orbs i,.sc-track{animation:none}.mt-track{transform:none!important}}
+
+/* Fotos dentro dos artigos */
+.art-body h2{clear:both}
+.art-fig{margin:22px 0 4px}
+.art-fig img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--line-2);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.art-fig.wide img{aspect-ratio:16/9;object-fit:cover}
+@media (min-width:700px){.art-fig.side img{aspect-ratio:4/3;object-fit:cover;object-position:50% 40%}}
+@media (max-width:699px){.art-fig.side img{aspect-ratio:4/5;object-fit:cover}}
+/* Faixa gigante so aparece com o catalogo completo */
+body:not(.rails) .megatype{display:none}
 </style>
 </head>
 <body>
@@ -1545,7 +1558,7 @@ footer .wrap{position:relative;padding-block:56px 40px!important;gap:34px!import
 <p>As dietas cetogênicas mudam o combustível principal do corpo da glicose para os corpos cetônicos, enquanto os agonistas do receptor GLP-1, como a semaglutida, a tirzepatida e a retatrutida, mimetizam hormônios incretinas que controlam o apetite, a insulina e o esvaziamento gástrico.</p>
 <p>Combiná-los de forma descuidada pode acelerar a perda muscular, causar desequilíbrios eletrolíticos graves e travar seu metabolismo por meses. Este guia reúne a ciência por trás dessa sinergia, os cuidados para combinar com segurança, a estratégia de saída para evitar o efeito rebote e os dados clínicos que devem orientar cada decisão.</p>
 
-<h2 id="mecanismos">Como a cetose e o GLP-1 atuam por mecanismos diferentes</h2>
+<h2 id="mecanismos">Como a cetose e o GLP-1 atuam por mecanismos diferentes</h2><figure class="art-fig side"><img src="img/keto-refeicao.webp" alt="Mulher sorrindo diante de um prato com frango grelhado, espinafre, abacate e ovos" width="736" height="920" loading="lazy" decoding="async"></figure>
 <p>Essas duas abordagens se complementam porque atuam em vias metabólicas independentes:</p>
 <div class="art-duo">
   <div><span class="ph">Dieta cetogênica</span><h4>Altera o combustível</h4><p>Quando a ingestão de carboidratos cai para menos de 20 a 50 gramas por dia, os estoques de glicogênio se esgotam em 24 a 72 horas e o fígado converte ácidos graxos em corpos cetônicos (beta-hidroxibutirato, acetoacetato e acetona), que passam a abastecer o cérebro, o coração e os músculos.</p><p>Um estudo analisando a Dieta Cetogênica Mediterrânea Espanhola documentou uma perda média de 14,47 kg em 12 semanas, com redução de 47,9% nos triglicerídeos.</p></div>
@@ -1568,7 +1581,7 @@ footer .wrap{position:relative;padding-block:56px 40px!important;gap:34px!import
   <div><b>até 40%</b><span>do peso perdido com GLP-1 pode vir de músculo</span><small>Estudos STEP e SURMOUNT</small></div>
 </div>
 
-<h2 id="macros">Proporções de macronutrientes e estrutura prática das refeições</h2>
+<h2 id="macros">Proporções de macronutrientes e estrutura prática das refeições</h2><figure class="art-fig side"><img src="img/keto-prato.webp" alt="Prato com salmão, ovos cozidos, queijo, abacate, pepino e rúcula" width="736" height="920" loading="lazy" decoding="async"></figure>
 <p>A dieta cetogênica clássica (70% a 75% de gordura e apenas 20% de proteína) foi criada para epilepsia, não para quem usa um medicamento que reduz drasticamente o apetite. Na combinação com GLP-1, a proteína é a prioridade máxima para evitar a perda muscular.</p>
 <p>A meta recomendada é de 1,6 a 2,2 gramas de proteína por quilo de peso corporal ao dia, mantendo os carboidratos líquidos entre 20 e 30 gramas e preenchendo o restante com gorduras saudáveis (55% a 70% das calorias). Para um indivíduo de 82 kg consumindo de 1.400 a 1.600 kcal/dia, a divisão fica assim:</p>
 <div class="art-table"><table>
@@ -1624,7 +1637,7 @@ footer .wrap{position:relative;padding-block:56px 40px!important;gap:34px!import
   <div><time>Semanas 3 a 12+</time><span>Após estabilizar o apetite (uma oscilação inicial de 1 a 2 kg de água e glicogênio é normal), mantenha a cetose estrita por 3 a 6 meses antes de testar seu limiar sustentável de carboidratos (50 a 75 g/dia).</span></div>
 </div>
 
-<h2 id="treino">Treino, monitoramento e considerações especiais</h2>
+<h2 id="treino">Treino, monitoramento e considerações especiais</h2><figure class="art-fig wide"><img src="img/keto-acompanhamento.webp" alt="Casal à mesa com refeição cetogênica, fita métrica e caderno de acompanhamento" width="900" height="507" loading="lazy" decoding="async"></figure>
 <ul>
   <li><b>Treinamento de resistência:</b> de 2 a 4 sessões semanais de musculação focadas em exercícios compostos (agachamento, levantamento terra, supino, remadas), acompanhadas de 8.000 a 10.000 passos diários. O treino de força é o principal sinal para o corpo queimar gordura em vez de músculo.</li>
   <li><b>Cetogênica direcionada (TKD) para treinos pesados:</b> se você pratica musculação intensa e sentir queda de rendimento com carboidrato zero, consuma de 15 a 30 g de carboidrato de rápida digestão imediatamente antes do treino. Isso fornece glicose pontual para os músculos sem interromper a cetose no restante do dia.</li>
@@ -2716,7 +2729,8 @@ document.getElementById("resetAll").addEventListener("click", () => setTimeout(s
 // vitrine viva: frascos reais passando
 (function(){
   const sc = document.getElementById("showcase"); if(!sc) return;
-  const list = P.filter(p => !upcomingOnly(p) && photoFor(p) && firstOrderable(p) >= 0);
+  let list = P.filter(p => !upcomingOnly(p) && photoFor(p) && firstOrderable(p) >= 0);
+  if(matchMedia("(max-width:680px)").matches) list = list.slice(0, 12);
   const item = p => '<a href="#'+p.slug+'" class="sc-item" tabindex="-1"><span class="sc-img"><img src="img/'+photoFor(p)+'.webp" alt="" loading="lazy" decoding="async"></span><b>'+esc(p.nome)+'</b></a>';
   const half = list.map(item).join("");
   sc.innerHTML = '<div class="sc-track">' + half + half + '</div>';
