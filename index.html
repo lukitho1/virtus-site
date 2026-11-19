@@ -865,6 +865,7 @@ body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opa
 .showcase::before,.showcase::after{content:"";position:absolute;top:0;bottom:0;width:7%;min-width:28px;z-index:2;pointer-events:none}
 .showcase::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
 .showcase::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+@media (min-width:681px){.showcase{-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}.showcase::before,.showcase::after{display:none}}
 .sc-track{display:flex;gap:14px;width:max-content;padding-block:6px 10px;animation:scRun calc(var(--n,20) * 3.2s) linear infinite;-webkit-transform:translateZ(0);will-change:transform}
 .showcase:hover .sc-track{animation-play-state:paused}
 @keyframes scRun{to{transform:translateX(calc(-50% - 7px))}}
