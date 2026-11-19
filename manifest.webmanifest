@@ -1,0 +1,12 @@
+{
+  "name": "Catálogo Virtus Peptides",
+  "short_name": "Virtus",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#040A1A",
+  "theme_color": "#040A1A",
+  "icons": [
+    {"src": "img/icone-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "img/icone-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}

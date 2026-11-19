@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e1b">
+  <title>Protocolos de pesquisa · Virtus Peptides</title>
+  <meta name="description" content="Biblioteca de fichas de pesquisa da Virtus Peptides. Explore temas por nome ou categoria e consulte as fontes científicas.">
+  <link rel="icon" href="../img/marca.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="protocolos.css">
+  <script src="protocolos.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#indice">Ir ao índice</a>
+  <header class="site-header">
+    <div class="wrap top">
+      <a class="brand" href="../"><img src="../img/logo.png" alt="Virtus Peptides" width="124" height="51"></a>
+      <nav aria-label="Principal"><a class="catalog-link" href="../"><span aria-hidden="true">←</span> Catálogo Virtus</a></nav>
+    </div>
+  </header>
+  <main class="wrap library" id="indice" aria-labelledby="index-title">
+    <div class="title-line">
+      <h1 id="index-title">Protocolos de pesquisa</h1>
+      <span class="counter" aria-live="polite" id="counter"></span>
+    </div>
+    <div class="fields">
+      <div class="search">
+        <label for="search">Buscar ficha</label>
+        <div><span class="lens" aria-hidden="true"></span><input type="search" id="search" placeholder="Nome, sinônimo ou tema"></div>
+      </div>
+      <div class="category">
+        <label for="category">Categoria</label>
+        <select id="category"><option value="">Todas as categorias</option></select>
+      </div>
+    </div>
+    <div class="alphabet" id="alphabet" role="group" aria-label="Filtrar por inicial"></div>
+    <div id="protocol-list"></div>
+    <div hidden class="empty" id="empty">
+      <h2>Nenhuma ficha encontrada</h2>
+      <p>Tente outro termo ou limpe os filtros.</p>
+      <button type="button" id="reset">Limpar filtros</button>
+    </div>
+    <noscript>Ative o JavaScript para consultar as fichas interativas.</noscript>
+  </main>
+  <footer><div class="wrap foot"><span>Virtus Peptides</span><a href="../">Voltar ao catálogo ↑</a></div></footer>
+  <dialog id="sheet" aria-labelledby="entry-title">
+    <div class="dialog-head"><span class="kicker">Ficha de pesquisa</span><button type="button" id="close" aria-label="Fechar ficha" autofocus>×</button></div>
+    <div id="details"></div>
+  </dialog>
+</body>
+</html>
