@@ -430,13 +430,38 @@ for (const letter of ['', ...new Set(records.map(firstLetter))]) {
 
 const standalonePages = new Set(['bpc-157', 'ghk-cu', 'glutationa', 'glow', 'klow', 'kpv', 'melanotan-2', 'mots-c', 'pt-141', 'retatrutida', 'semax', 'selank', 'tb-500', 'tesamorelin', 'thymosin-alpha-1', 'tirzepatida', 'dsip', 'ipamorelin-cjc', 'cartalax', 'bpc-tb', 'ara-290', 'aod-9604', '5-amino-1mq', 'epitalon', 'nad']);
 
+/* LIST-UX: fotos, preco e agrupamento por objetivo */
+const FOTO = {"semax":"semax","n-acetyl-semax":"n-acetyl-semax","selank":"selank","n-acetyl-selank":"n-acetyl-selank","dsip":"dsip","nad":"nad","mots-c":"mots-c-10","ss-31":"ss-31","tesamorelin":"tesamorelin-10","retatrutida":"retatrutida-30","cagrilintide":"cagrilintide","aod-9604":"aod-9604","bpc-157":"bpc-157-10","tb-500":"tb-500-10","bpc-tb":"bpc-tb","ipamorelin-cjc":"ipamorelin-cjc","ghk-cu":"ghk-cu-50","melanotan-2":"melanotan-2","pt-141":"pt-141","thymosin-alpha-1":"thymosin-alpha-1","kpv":"kpv","glutationa":"glutationa","glow":"glow","klow":"klow","cartalax":"cartalax-20","tirzepatida":"tirzepatida","illumineuro":"illumineuro"};
+const GROUP_ORDER = ['cognicao','sono','energia','metabolismo','recuperacao','pele','libido','insumos'];
+const GROUP_ICON = {
+  cognicao:'<path d="M9 4a3 3 0 0 0-3 3v.2A3 3 0 0 0 4 10a3 3 0 0 0 1 2.2A3 3 0 0 0 6 17a3 3 0 0 0 3 3V4Zm6 0a3 3 0 0 1 3 3v.2A3 3 0 0 1 20 10a3 3 0 0 1-1 2.2A3 3 0 0 1 18 17a3 3 0 0 1-3 3V4Z"/>',
+  sono:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/>',
+  energia:'<path d="M13 3 5 13h6l-1 8 8-10h-6l1-8Z"/>',
+  metabolismo:'<path d="M12 3c2 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.5 1 2.5 2 3 0-3 0-5 1-7.5Z"/>',
+  recuperacao:'<path d="M8 3v5a4 4 0 0 0 8 0V3M12 12v9M8 21h8"/>',
+  pele:'<path d="M12 3l1.8 4.6L18 9.5l-4.2 1.9L12 16l-1.8-4.6L6 9.5l4.2-1.9L12 3Z"/>',
+  libido:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/>',
+  insumos:'<path d="M9 3h6M10 3v5l-4 9a2 2 0 0 0 1.8 3h8.4a2 2 0 0 0 1.8-3l-4-9V3"/>'
+};
+const groupIcon = g => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (GROUP_ICON[g] || GROUP_ICON.insumos) + '</svg>';
+const brl = n => 'R$ ' + Number(n).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+function priceFor(id) {
+  const pr = (window.VIRTUS_PRECOS || {})[id]; if (!pr) return null;
+  const v = Object.values(pr); return {min: Math.min(...v), multi: v.length > 1};
+}
 function protocolCard(record) {
   const item = element('li');
   const link = element('a', '', 'protocol-card');
   link.href = standalonePages.has(record.id) ? './' + record.id + '/' : '#ficha/' + record.id;
   link.style.setProperty('--tone', palette[record.group]);
   link.setAttribute('aria-label', 'Abrir ficha de ' + record.name);
-  link.append(element('span', record.category, 'tag'), element('h3', record.name, 'card-name'));
+  const thumb = element('span', '', 'card-thumb');
+  if (FOTO[record.id]) { const im = document.createElement('img'); im.src = '../img/' + FOTO[record.id] + '.webp'; im.alt = ''; im.loading = 'lazy'; im.decoding = 'async'; im.width = 600; im.height = 900; thumb.append(im); }
+  else thumb.innerHTML = groupIcon(record.group);
+  link.append(thumb);
+  const tag = element('span', record.category, 'tag');
+  tag.insertAdjacentHTML('afterbegin', groupIcon(record.group));
+  link.append(tag, element('h3', record.name, 'card-name'));
   if (record.size) link.append(element('span', record.size + ' na ficha', 'card-size'));
   link.append(element('p', record.summary, 'card-summary'));
   const action = element('span', 'Abrir ficha', 'card-action');
@@ -444,6 +469,13 @@ function protocolCard(record) {
   action.append(element('span', '→'));
   link.append(action);
   item.append(link);
+  const price = priceFor(record.id);
+  if (price) {
+    const chip = element('a', (price.multi ? 'a partir de ' : '') + brl(price.min), 'card-price');
+    chip.href = '../#' + record.id;
+    chip.setAttribute('aria-label', 'Ver ' + record.name + ' no catálogo, ' + chip.textContent);
+    item.append(chip);
+  }
   return item;
 }
 
@@ -470,12 +502,28 @@ function render() {
       && words.every(part => keywords.includes(part));
   });
   const groups = new Map();
-  for (const record of found) {
-    const letter = firstLetter(record);
-    if (!groups.has(letter)) groups.set(letter, []);
-    groups.get(letter).push(record);
+  if (!initial) {
+    const sorted = [...found].sort((a, b) => (GROUP_ORDER.indexOf(a.group) - GROUP_ORDER.indexOf(b.group)) || collator.compare(a.name, b.name));
+    for (const record of sorted) {
+      if (!groups.has(record.group)) groups.set(record.group, []);
+      groups.get(record.group).push(record);
+    }
+    protocolList.replaceChildren(...Array.from(groups, ([g, group]) => {
+      const sec = protocolGroup(group[0].category, group);
+      sec.classList.add('by-goal');
+      sec.querySelector('.group-letter').insertAdjacentHTML('afterbegin', '<span class="goal-ic">' + groupIcon(g) + '</span>');
+      return sec;
+    }));
+  } else {
+    for (const record of found) {
+      const letter = firstLetter(record);
+      if (!groups.has(letter)) groups.set(letter, []);
+      groups.get(letter).push(record);
+    }
+    protocolList.replaceChildren(...Array.from(groups, ([letter, group]) => protocolGroup(letter, group)));
   }
-  protocolList.replaceChildren(...Array.from(groups, ([letter, group]) => protocolGroup(letter, group)));
+  const chipBox = document.querySelector('#goalChips');
+  if (chipBox) for (const b of chipBox.children) b.setAttribute('aria-pressed', String(b.dataset.cat === category.value));
   document.querySelector('#counter').textContent = found.length + (found.length === 1 ? ' ficha' : ' fichas');
   document.querySelector('#empty').hidden = found.length !== 0;
   for (const button of alphabet.children) button.setAttribute('aria-pressed', String(button.dataset.letter === initial));
@@ -528,5 +576,17 @@ document.querySelector('#reset').addEventListener('click', () => {
 search.addEventListener('input', render);
 category.addEventListener('change', render);
 window.addEventListener('hashchange', route);
+const goalChips = document.querySelector('#goalChips');
+if (goalChips) {
+  const mk = (label, value, g) => {
+    const btn = element('button', '', 'goal-chip'); btn.type = 'button'; btn.dataset.cat = value;
+    btn.innerHTML = (g ? groupIcon(g) : '') + '<span></span>'; btn.querySelector('span').textContent = label;
+    btn.addEventListener('click', () => { category.value = value; render(); });
+    goalChips.append(btn);
+  };
+  mk('Todas', '', null);
+  const firstOf = name => records.find(r => r.category === name);
+  [...subjects].sort((a, b) => GROUP_ORDER.indexOf(firstOf(a).group) - GROUP_ORDER.indexOf(firstOf(b).group)).forEach(name => mk(name, name, firstOf(name).group));
+}
 render();
 route();
