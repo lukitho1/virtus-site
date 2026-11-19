@@ -25,6 +25,8 @@
 <script src="dados/metricas.js"></script>
 <script>if(window.VIRTUS_UMAMI_ID){var u=document.createElement("script");u.defer=1;u.src="https://cloud.umami.is/script.js";u.dataset.websiteId=window.VIRTUS_UMAMI_ID;document.head.appendChild(u)}</script>
 <title>Catálogo Virtus</title>
+<link rel="preload" as="image" href="img/black-week.webp" fetchpriority="high">
+<link rel="preload" as="image" href="img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
@@ -644,7 +646,7 @@ body.cart-open{overflow:hidden}
 @media (max-width:520px){.specs{font-size:12px!important}}
 /* Blend com foto larga */
 .blend.wide .blend-img img{max-width:270px;max-height:240px;-webkit-mask:radial-gradient(ellipse 70% 72% at 50% 50%,#000 62%,transparent 100%);mask:radial-gradient(ellipse 70% 72% at 50% 50%,#000 62%,transparent 100%)}
-@media (max-width:640px){.blend.wide{grid-template-columns:minmax(0,1fr) 140px}.blend.wide .blend-img img{max-width:150px}}
+@media (max-width:640px){.blend.wide{grid-template-columns:1fr;padding:16px 18px 18px}.blend.wide .blend-img{order:-1;justify-content:center;margin:-4px 0 2px}.blend.wide .blend-img img{max-width:100%;max-height:150px}.blend.wide h4.sm{font-size:21px}}
 /* === TEMA BLACK (inicio) === */
 html.black{--bg:#0B0C0E;--panel:#16171C;--panel-2:#1C1D23;--line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.18);--fg:#F6F6F7;--silver:#C8C9CE;--muted:#A4A5AE;--blue:#DF2040;--blue-hi:#FF526C;--paper:#F7F7F7;--ink:#18191E;--ink-2:#505259;--rule:#DDDDE0;--grad:linear-gradient(90deg,var(--red) 0%,#B3122E 45%,var(--blue) 100%)}
 html.black body{background-image:radial-gradient(60% 40% at 100% 0%,rgba(223,32,64,.20),transparent 70%),radial-gradient(50% 35% at 0% 55%,rgba(223,32,64,.10),transparent 70%)}
@@ -693,6 +695,151 @@ html.black .syringe-svg [fill="#0D1A3D"]{fill:#16171C}
 html.black .syringe-svg [stroke="#BAC5DC"]{stroke:#C8C9CE}
 html.black .syringe-svg [fill="#BAC5DC"]{fill:#C8C9CE}
 /* === TEMA BLACK (fim) === */
+
+/* ===== Experiencia premium (pacote UX) ===== */
+.filters{top:calc(env(safe-area-inset-top,0px) + var(--hdr,55px))!important}
+.cat{scroll-margin-top:calc(var(--hdr,55px) + 76px)}
+.m-actions{display:none;align-items:center;gap:4px}
+.m-ic{position:relative;width:42px;height:42px;border-radius:12px;border:0;background:none;color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.m-ic svg{width:22px;height:22px}
+.m-ic:active{background:rgba(255,255,255,.08)}
+.m-ic b{position:absolute;top:4px;right:2px;min-width:18px;height:18px;border-radius:999px;background:var(--red);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.m-ic.bump{animation:cartBump .5s ease}
+@media (max-width:680px){
+  .top .wrap{flex-wrap:nowrap!important;padding-block:8px}
+  .top-actions{display:none!important}
+  .m-actions{display:flex}
+  .brand img{height:30px!important}
+}
+.m-menu{position:fixed;inset:0;z-index:65}
+.m-menu-bg{position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);animation:fadeIn .2s ease}
+.m-menu-panel{position:absolute;top:0;right:0;bottom:0;width:min(330px,88%);background:var(--panel);border-left:1px solid var(--line-2);display:flex;flex-direction:column;padding:calc(12px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));animation:slideIn .26s cubic-bezier(.2,.8,.2,1)}
+.m-menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.m-menu-head img{height:28px;width:auto}
+.m-x{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:none;font-size:22px;cursor:pointer}
+.m-menu-panel a{display:flex;flex-direction:column;gap:2px;padding:14px 6px;border-bottom:1px solid var(--line);text-decoration:none}
+.m-menu-panel a span{font-family:var(--display);font-weight:700;font-size:18px}
+.m-menu-panel a small{color:var(--silver);font-size:13px}
+.m-menu-panel a.m-wa{flex-direction:row;align-items:center;justify-content:center;gap:8px;margin-top:auto;border:0;border-radius:999px;background:var(--red);color:#fff;padding:14px}
+.m-menu-panel a.m-wa svg{width:18px;height:18px}
+.m-menu-panel a.m-wa span{font-family:var(--body);font-size:15px}
+body.menu-open{overflow:hidden}
+/* Black compacta no celular */
+@media (max-width:640px){
+  .bw-phases{flex-wrap:nowrap!important;justify-content:flex-start!important;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px!important;padding-top:14px!important}
+  .bw-phases::-webkit-scrollbar{display:none}
+  .bw-phases span{flex:none}
+  .bw-inner{grid-template-columns:96px minmax(0,1fr)!important;justify-items:start!important;text-align:left!important;align-items:center;gap:14px!important;padding-block:16px 18px!important}
+  .bw-badge{width:96px!important}
+  .bw h2{font-size:29px!important;margin-top:0!important}
+  .bw-count{justify-content:flex-start!important;gap:5px!important;margin-top:10px!important}
+  .bw-count small{font-size:10px}
+  .bw-count div{min-width:0!important;width:52px;padding:6px 4px!important}
+  .bw-count div b{font-size:18px!important}
+  .bw-count div span{font-size:9px!important}
+  .bw-cta{margin-top:10px!important;width:100%;justify-content:center;padding-inline:10px!important;font-size:13.5px!important}
+  .bw-blends{padding-bottom:20px!important}
+  .hero{padding-block:26px 18px!important}
+}
+/* Fotos: fundo suave enquanto carregam */
+.media::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.06) 50%,transparent 70%);transform:translateX(-100%);animation:shimmer 1.4s ease-in-out infinite}
+@keyframes shimmer{to{transform:translateX(100%)}}
+.media:has(img.ok)::before,.media:has(>svg)::before{display:none;animation:none}
+@media (max-width:1100px){.blend.wide .blend-img img{max-width:220px}}
+.media img{opacity:0;transition:opacity .45s ease,transform .35s ease!important}
+.media img.ok{opacity:1}
+/* Cards entrando ao rolar */
+.card{transition:border-color .2s,box-shadow .25s,opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1)!important}
+.card.rv{opacity:0;transform:translateY(18px)}
+/* Frascos com profundidade */
+@media (hover:hover) and (pointer:fine){
+  .card .media img,.card .media svg{transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1)!important;transition:transform .25s ease-out,opacity .45s ease!important}
+  .card:hover .media img,.card:hover .media svg{transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1.05)!important}
+  .card .media::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.16) 48%,transparent 60%);transform:translateX(-120%)}
+  .card:hover .media::after{transition:transform .9s ease;transform:translateX(120%)}
+}
+@media (hover:none){
+  .pd-media img,.pd-media svg{animation:vialFloat 6s ease-in-out infinite}
+}
+@keyframes vialFloat{50%{transform:translateY(-6px)}}
+/* Ficha: frasco voando */
+::view-transition-group(vial){animation-duration:.48s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.28s}
+html.vt .sheet{animation:none!important}
+/* Ficha: blends e barra fixa */
+.pd-blends:empty{display:none}
+.pd-blends{display:grid;gap:8px;margin-top:4px}
+.pd-blend{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line-2);border-radius:12px;text-decoration:none;background:rgba(224,32,63,.08)}
+.pd-blend b{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:5px;padding:3px 7px}
+.pd-blend span{font-weight:600;font-size:14px;line-height:1.3}
+.pd-blend em{font-style:normal;font-size:12.5px;font-weight:700;color:var(--red-hi);white-space:nowrap}
+@media (max-width:560px){.pd-blend{grid-template-columns:auto 1fr}.pd-blend em{grid-column:1/-1}}
+.blend.flash{animation:blendFlash 1.6s ease}
+@keyframes blendFlash{0%,100%{box-shadow:none}25%,60%{box-shadow:0 0 0 3px #fff}}
+.pd-bar{display:none}
+@media (max-width:860px){
+  .pd-bar{display:flex;position:sticky;bottom:0;z-index:3;align-items:center;justify-content:space-between;gap:12px;padding:12px max(16px,env(safe-area-inset-left,0px)) calc(12px + env(safe-area-inset-bottom,0px));background:rgba(11,12,14,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line-2)}
+  .pd-bar-p{display:flex;flex-direction:column;min-width:0}
+  .pd-bar-p small{font-size:11.5px;color:var(--silver);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pd-bar-p b{font-family:var(--display);font-weight:800;font-size:20px;white-space:nowrap}
+  .pd-bar-p b s{font-size:12px;color:var(--muted);font-weight:500;margin-right:4px}
+  .pd-bar .btn{flex:none;padding:12px 18px}
+  .pd-bar .btn svg{width:16px;height:16px}
+}
+/* Barra inferior unica no celular */
+.mbar{display:none}
+@media (max-width:680px){
+  body.has-cart .fab,body.has-cart .cart-fab{display:none!important}
+  body.has-cart .mbar{display:flex}
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:35;gap:10px;align-items:center;padding:10px max(12px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(11,12,14,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line-2);animation:barUp .3s cubic-bezier(.2,.8,.2,1)}
+  @keyframes barUp{from{transform:translateY(100%)}}
+  .mb-list{flex:1;min-width:0;display:flex;align-items:center;gap:10px;border:1px solid var(--line-2);border-radius:14px;background:#fff;color:#0B0D14;padding:9px 12px;font:inherit;text-align:left;cursor:pointer}
+  .mb-list svg{width:20px;height:20px;flex:none}
+  .mb-list span{display:flex;flex-direction:column;min-width:0;flex:1}
+  .mb-list b{font-size:14px;line-height:1.2}
+  .mb-list small{font-size:12px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mb-list em{font-style:normal;min-width:24px;height:24px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:12.5px;display:flex;align-items:center;justify-content:center;padding:0 7px}
+  .mb-list.bump{animation:cartBump .5s ease}
+  .mb-wa{flex:none;display:flex;align-items:center;gap:7px;border-radius:14px;background:var(--red);color:#fff;font-weight:700;font-size:14px;padding:13px 14px;text-decoration:none}
+  .mb-wa svg{width:18px;height:18px}
+  body.has-cart footer{padding-bottom:84px}
+  body.has-cart .to-top{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+/* Voltar ao topo */
+.to-top{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:rgba(11,12,14,.85);backdrop-filter:blur(8px);color:var(--fg);display:flex;align-items:center;justify-content:center;cursor:pointer;animation:fadeIn .25s ease}
+.to-top svg{width:20px;height:20px}
+/* Frete gratis com barra */
+.ship{margin:0 0 12px}
+.ship p{margin:0 0 7px;font-size:13px;color:var(--silver)}
+.ship p b{color:#fff}
+.ship-bar{height:7px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+.ship-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--red),var(--red-hi));transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.ship.ok .ship-bar i{background:linear-gradient(90deg,#2fbf71,#7BE3A4)}
+.ship.ok p b{color:#7BE3A4}
+/* Categoria atual */
+.chip.spy{border-color:var(--blue);color:var(--fg)}
+/* Busca instantanea */
+.sugg{position:absolute;z-index:18;max-width:calc(100vw - 32px);background:var(--panel);border:1px solid var(--line-2);border-radius:16px;box-shadow:0 22px 50px rgba(0,0,0,.55);overflow:hidden;animation:fadeIn .15s ease}
+.sg{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 12px;text-decoration:none;border-bottom:1px solid var(--line)}
+.sg:hover,.sg.on{background:rgba(255,255,255,.05)}
+.sg-img{position:relative;width:44px;height:52px;border-radius:8px;overflow:hidden;background:var(--bg)}
+.sg-img img,.sg-img svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sg-t b{display:block;font-size:14.5px}
+.sg-t small{display:block;font-size:12px;color:var(--silver);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sg-p{font-weight:700;font-size:14px;white-space:nowrap;text-align:right}
+.sg-p s{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.sg-p small{font-size:11.5px;color:var(--muted)}
+.sg-all{width:100%;border:0;background:none;padding:12px;font:inherit;font-size:13.5px;font-weight:700;color:var(--red-hi);cursor:pointer}
+.sugg-empty{padding:14px 16px;font-size:13.5px;color:var(--silver)}
+/* Menos brilho */
+.hero h1,html.black .hero h1{text-shadow:none!important}
+.bw h2 em{text-shadow:none!important}
+html.black .hero .eyebrow,html.black .band>.eyebrow,html.black .community .eyebrow,html.black .seals-head .eyebrow{box-shadow:none!important}
+.card:hover,html.black .card:hover{box-shadow:0 16px 36px rgba(0,0,0,.45)!important}
+.bf-tag{box-shadow:none!important}
+.btn-calc,html.black .btn-calc,.btn-calc:hover,html.black .btn-calc:hover{box-shadow:none!important}
+.bw-phases span.on{box-shadow:none!important}
+@media (prefers-reduced-motion:reduce){.media::before{animation:none}.card.rv{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -714,8 +861,24 @@ html.black .syringe-svg [fill="#BAC5DC"]{fill:#C8C9CE}
       <span class="lg">Falar com a equipe</span><span class="sm">Equipe</span>
     </a>
     </div>
+    <div class="m-actions">
+      <button type="button" class="m-ic" id="mSearch" aria-label="Buscar produto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button type="button" class="m-ic" id="mCart" aria-label="Abrir minha lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><b id="mCartCount" hidden>0</b></button>
+      <button type="button" class="m-ic" id="mMenuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
   </div>
 </header>
+<div class="m-menu" id="mMenu" hidden>
+  <div class="m-menu-bg" data-mclose></div>
+  <nav class="m-menu-panel" aria-label="Menu">
+    <div class="m-menu-head"><img src="img/logo.png" alt="Virtus Peptides" width="372" height="154"><button type="button" class="m-x" data-mclose aria-label="Fechar menu">×</button></div>
+    <a href="#blackWeek" data-mclose data-mto="blackWeek"><span>Black Week</span><small>20 a 27/11</small></a>
+    <a href="./protocolos/" data-mclose><span>Protocolos</span><small>Biblioteca de fichas</small></a>
+    <a href="#artigos" data-mclose><span>Artigos</span><small>Guias e leituras</small></a>
+    <a href="#calculadora" data-mclose><span>Calculadora de Reconstituição</span><small>Quanto puxar na seringa</small></a>
+    <a href="#" id="mMenuWa" target="_blank" rel="noopener" data-mclose class="m-wa"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg><span>Falar com a equipe</span></a>
+  </nav>
+</div>
 
 <section class="bw" id="blackWeek" aria-label="Black Week Virtus 2026">
   <div class="bw-ticker" aria-hidden="true"><div class="bw-track" id="bwTrack"><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span></div></div>
@@ -725,9 +888,8 @@ html.black .syringe-svg [fill="#BAC5DC"]{fill:#C8C9CE}
     <span class="surp">Ofertas surpresa</span>
   </div>
   <div class="wrap bw-inner">
-    <div class="bw-badge"><img src="img/black-week.webp" alt="Black Week Virtus" width="420" height="420"></div>
+    <div class="bw-badge"><img src="img/black-week.webp" alt="Black Week Virtus" width="420" height="420" fetchpriority="high"></div>
     <div>
-      <span class="bw-tag"><b></b>De 20 a 27 de novembro</span>
       <h2>Black Week<br><em>Virtus 2026</em></h2>
       <div class="bw-count" id="bwCount" aria-live="off"></div>
       <a class="btn btn-gold bw-cta" id="bwWa" target="_blank" rel="noopener">Quero aproveitar a Black Week</a>
@@ -739,7 +901,7 @@ html.black .syringe-svg [fill="#BAC5DC"]{fill:#C8C9CE}
       <div class="bw-nav"><button type="button" id="bwPrev" aria-label="Blend anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><button type="button" id="bwNext" aria-label="Próximo blend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div>
     </div>
     <div class="bw-rail" id="bwRail" tabindex="0" aria-label="Blends da Black Week">
-      <article class="blend wide">
+      <article class="blend wide" id="blend-1">
         <div class="blend-body">
           <span class="blend-n">Blend 1</span>
           <span class="blend-kicker">Secar com Máxima Performance &amp; Sem Flacidez</span>
@@ -749,7 +911,7 @@ html.black .syringe-svg [fill="#BAC5DC"]{fill:#C8C9CE}
         </div>
         <div class="blend-img"><img src="img/blend-emagrecimento.webp" alt="Frascos de Retatrutida, CJC-1295/Ipamorelin e GHK-Cu Virtus" width="620" height="521" loading="lazy"></div>
       </article>
-      <article class="blend">
+      <article class="blend" id="blend-7">
         <div class="blend-body">
           <span class="blend-n">Blend 7</span>
           <span class="blend-kicker">Intestino &amp; Eixo Intestino-Cérebro</span>
@@ -1368,6 +1530,7 @@ html.black .syringe-svg [fill="#BAC5DC"]{fill:#C8C9CE}
 <script src="dados/precos.js"></script>
 <script src="dados/estoque.js"></script>
 <script src="dados/black.js"></script>
+<script src="dados/blends.js"></script>
 <script>
 (function(){
 const PHONE = "5581985779232";
@@ -1681,6 +1844,18 @@ const orderable = (p, vi) => !isUpcoming(p.v[vi]) && priceOf(p, vi) != null && !
 const firstOrderable = p => p.v.findIndex((v,i) => orderable(p, i));
 function track(ev, data){ try{ if(window.umami) window.umami.track(ev, data); }catch(e){} }
 function offPct(p, vi){ const t = blackTiers(p, vi), b = priceOf(p, vi); if(!t || !b) return 0; return Math.floor((1 - t[t.length-1]/b)*100 + 1e-6); }
+/* Blends da Black que contem o produto (so os ja revelados) */
+const BLENDS = window.VIRTUS_BLENDS || [];
+const BLENDS_FIM = Date.parse("2026-11-23T23:59:59-03:00"), BLENDS_INI = Date.parse("2026-11-20T12:00:00-03:00");
+function blendsFor(p){
+  if(Date.now() > BLENDS_FIM) return "";
+  const list = BLENDS.filter(b => b.revelado && b.itens.includes(p.slug) && document.getElementById("blend-" + b.n));
+  if(!list.length) return "";
+  const antes = Date.now() < BLENDS_INI;
+  return '<span class="eyebrow">Na Black Week</span>' + list.map(b =>
+    '<a href="#" class="pd-blend" data-blend="' + b.n + '"><b>Blend ' + b.n + '</b><span>' + esc(b.nome) + '</span><em>' + (antes ? 'Revelado em 20/11 →' : 'Ver blend →') + '</em></a>').join("");
+}
+let flySrc = null;
 function minPrice(p){ const ps = p.v.map((v,i)=>!isUpcoming(v) ? priceOf(p,i) : null).filter(x=>x!=null); return ps.length ? {n:Math.min(...ps), multi:ps.length>1} : null; }
 
 const COMBOS = [
@@ -1749,7 +1924,7 @@ function photoFor(p, vi){
 }
 function mediaHTML(p, vi){
   const ph = photoFor(p, vi);
-  return ph ? '<img src="img/' + ph + '.webp?v=5" alt="Frasco ' + esc(p.nome) + ' Virtus" loading="lazy" decoding="async">' : vialSVG(p, vi||0);
+  return ph ? '<img src="img/' + ph + '.webp" alt="Frasco ' + esc(p.nome) + ' Virtus" loading="lazy" decoding="async" onload="this.classList.add(\'ok\')" onerror="this.classList.add(\'ok\')">' : vialSVG(p, vi||0);
 }
 function msgFor(p, vi){
   const v = p.v[vi||0];
@@ -1971,6 +2146,7 @@ function openProduct(slug){
        (seals?'<div class="seals">'+seals+'</div>':'') +
        '<div class="vars"><span class="eyebrow label">'+(p.v.length>1?"Escolha a gramatura":"Gramatura")+'</span><div class="var-list">'+vars+'</div></div>' +
        '<div class="buybox"><div class="pd-price" id="pdPrice"></div><div class="yield" id="yield"></div></div>' +
+       '<div class="pd-blends" id="pdBlends"></div>' +
        '<div class="pd-cta"><button type="button" class="btn btn-gold" id="pdAdd">'+ICON_PLUS+'Adicionar à lista</button><a class="btn btn-line" id="pdWa" target="_blank" rel="noopener">'+WA_ICON+(minPrice(p)?'Comprar só este':'Consultar valor e disponibilidade')+'</a></div>' +
        (['5-amino-1mq','epitalon'].includes(p.slug) ? '<div class="block"><a class="btn btn-line" href="protocolos/'+p.slug+'/">Abrir ficha na biblioteca</a></div>' : '') +
        (p.preview ? '' :
@@ -1987,7 +2163,9 @@ function openProduct(slug){
        (rel?'<div class="block"><h2>Combina com</h2><div class="rel">'+rel+'</div></div>':'') +
        '<p class="note">Rendimento estimado no protocolo mais comum. A dose e a forma de uso para o seu objetivo são definidas com a nossa equipe.</p>') +
      '</div>' +
-   '</div></div>';
+   '</div></div>' +
+   '<div class="pd-bar" id="pdBar"><div class="pd-bar-p"><small id="pdBarLbl"></small><b id="pdBarPrice"></b></div><button type="button" class="btn btn-gold" id="pdBarAdd">'+ICON_PLUS+'Adicionar</button></div>';
+  document.getElementById("pdBlends").innerHTML = blendsFor(p);
   function setVar(i){
     const v = p.v[i];
     document.getElementById("pdMedia").innerHTML = mediaHTML(p, i) + (photoFor(p, i) ? '' : '<span class="photo-note">Imagem ilustrativa</span>');
@@ -2012,10 +2190,16 @@ function openProduct(slug){
     }
     const add = document.getElementById("pdAdd");
     add.hidden = !orderable(p,i);
-    add.onclick = () => addToCart(p.slug, i);
+    add.onclick = () => { flySrc = document.querySelector("#pdMedia img, #pdMedia svg"); addToCart(p.slug, i); };
+    const bAdd = document.getElementById("pdBarAdd"), bp = document.getElementById("pdBarPrice"), bl = document.getElementById("pdBarLbl");
+    bAdd.hidden = !orderable(p,i);
+    bAdd.onclick = () => { flySrc = document.querySelector("#pdMedia img, #pdMedia svg"); addToCart(p.slug, i); };
+    const tz = orderable(p,i) ? blackTiers(p,i) : null;
+    bl.textContent = (v[0] || p.nome) + (tz ? " · preço Black" : "");
+    bp.innerHTML = pr==null ? "Sob consulta" : isUpcoming(v) ? upcomingLabel : soldOut(p,i) ? "Esgotado" : tz ? '<s>'+brl(pr)+'</s> '+brl(tz[0]) : brl(pr);
   }
   sheet.querySelectorAll(".var").forEach(b=>b.addEventListener("click", ()=>setVar(+b.dataset.i)));
-  setVar(0);
+  setVar(Math.max(0, firstOrderable(p)));
   document.getElementById("backBtn").addEventListener("click", closeSheet);
   sheet.hidden = false;
   sheet.scrollTop = 0;
@@ -2168,6 +2352,195 @@ route();
 })();
 
 
+
+/* ===== Experiencia: topo, menu, barra inferior, animacoes, busca ===== */
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isMob = () => matchMedia("(max-width:680px)").matches;
+// altura real do topo -> barra de categorias gruda logo abaixo
+(function(){
+  const top = document.querySelector(".top");
+  const set = () => document.documentElement.style.setProperty("--hdr", top.offsetHeight + "px");
+  set(); addEventListener("resize", set);
+  try{ new ResizeObserver(set).observe(top); }catch(e){}
+})();
+// menu do celular
+(function(){
+  const m = document.getElementById("mMenu"), b = document.getElementById("mMenuBtn");
+  document.getElementById("mMenuWa").href = general;
+  const open = () => { m.hidden = false; b.setAttribute("aria-expanded","true"); document.body.classList.add("menu-open"); };
+  const close = () => { m.hidden = true; b.setAttribute("aria-expanded","false"); document.body.classList.remove("menu-open"); };
+  b.addEventListener("click", open);
+  m.addEventListener("click", e => {
+    const c = e.target.closest("[data-mclose]"); if(!c) return;
+    const to = c.dataset.mto;
+    if(to){ e.preventDefault(); close(); document.getElementById(to).scrollIntoView({behavior: RM ? "auto" : "smooth"}); return; }
+    close();
+  });
+  addEventListener("keydown", e => { if(e.key === "Escape" && !m.hidden) close(); });
+  document.getElementById("mSearch").addEventListener("click", () => {
+    const f = document.getElementById("searchForm");
+    const y = f.getBoundingClientRect().top + scrollY - (document.querySelector(".top").offsetHeight + 20);
+    scrollTo({top:y, behavior: RM ? "auto" : "smooth"});
+    setTimeout(() => q.focus({preventScroll:true}), RM ? 0 : 450);
+  });
+  document.getElementById("mCart").addEventListener("click", () => openCart());
+})();
+// barra inferior (celular) e voltar ao topo
+document.body.insertAdjacentHTML("beforeend",
+  '<div class="mbar" id="mbar"><button type="button" class="mb-list" id="mbList">'+ICON_BAG+'<span><b>Minha lista</b><small id="mbInfo"></small></span><em id="mbCount">0</em></button>' +
+  '<a class="mb-wa" id="mbWa" target="_blank" rel="noopener" href="'+general+'">'+WA_ICON+'WhatsApp</a></div>' +
+  '<button type="button" class="to-top" id="toTop" aria-label="Voltar ao topo" hidden>'+'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>'+'</button>');
+document.getElementById("mbList").addEventListener("click", () => openCart());
+(function(){
+  const t = document.getElementById("toTop");
+  let tick = false;
+  addEventListener("scroll", () => { if(tick) return; tick = true; requestAnimationFrame(() => { t.hidden = scrollY < innerHeight * 2; tick = false; }); }, {passive:true});
+  t.addEventListener("click", () => scrollTo({top:0, behavior: RM ? "auto" : "smooth"}));
+})();
+// fotos: marca as que ja estavam em cache
+function markLoaded(root){ (root||document).querySelectorAll(".media img").forEach(i => { if(i.complete && i.naturalWidth) i.classList.add("ok"); }); }
+markLoaded();
+// cards entrando ao rolar
+(function(){
+  if(RM || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if(!e.isIntersecting) return;
+    const c = e.target; io.unobserve(c);
+    const sib = [...c.parentElement.children].filter(x => !x.hidden);
+    const cols = getComputedStyle(c.parentElement).gridTemplateColumns.split(" ").length || 1;
+    c.style.transitionDelay = (sib.indexOf(c) % cols) * 70 + "ms";
+    c.classList.remove("rv");
+    c.addEventListener("transitionend", () => { c.style.transitionDelay = ""; }, {once:true});
+  }), {rootMargin:"0px 0px -6% 0px", threshold:0.08});
+  document.querySelectorAll(".card").forEach(c => { if(c.getBoundingClientRect().top > innerHeight){ c.classList.add("rv"); io.observe(c); } });
+  // garantia: se o observador atrasar, revela pelo scroll
+  let tk = false;
+  const sweep = () => { tk = false; document.querySelectorAll(".card.rv").forEach(c => { const r = c.getBoundingClientRect(); if(r.top < innerHeight * 1.05 && r.bottom > 0){ io.unobserve(c); c.classList.remove("rv"); } }); };
+  addEventListener("scroll", () => { if(!tk){ tk = true; setTimeout(sweep, 400); } }, {passive:true});
+  const iv = setInterval(() => { sweep(); if(!document.querySelector(".card.rv")) clearInterval(iv); }, 1200);
+})();
+// frascos com profundidade (computador)
+(function(){
+  if(RM || !matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  document.addEventListener("pointermove", e => {
+    const m = e.target.closest && e.target.closest(".card .media"); if(!m) return;
+    const r = m.getBoundingClientRect(), x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
+    m.style.setProperty("--ry", (x*10).toFixed(2)+"deg"); m.style.setProperty("--rx", (-y*8).toFixed(2)+"deg");
+  }, {passive:true});
+  document.addEventListener("pointerout", e => { const m = e.target.closest && e.target.closest(".card .media"); if(m && !m.contains(e.relatedTarget)){ m.style.removeProperty("--rx"); m.style.removeProperty("--ry"); } });
+})();
+// ficha abrindo com o frasco "voando" do card
+(function(){
+  if(RM || !document.startViewTransition) return;
+  catalog.addEventListener("click", e => {
+    const a = e.target.closest(".card-link"); if(!a || e.metaKey || e.ctrlKey) return;
+    e.preventDefault();
+    const slug = a.getAttribute("href").slice(1);
+    const src = a.querySelector(".media img, .media svg");
+    if(src) src.style.viewTransitionName = "vial";
+    document.documentElement.classList.add("vt");
+    const t = document.startViewTransition(() => {
+      if(src) src.style.viewTransitionName = "";
+      history.pushState(null, "", "#" + slug);
+      openProduct(slug);
+      const dst = document.querySelector("#pdMedia img, #pdMedia svg");
+      if(dst){ dst.classList.add("ok"); dst.style.viewTransitionName = "vial"; }
+    });
+    t.finished.finally(() => { const d = document.querySelector("#pdMedia img, #pdMedia svg"); if(d) d.style.viewTransitionName = ""; document.documentElement.classList.remove("vt"); });
+  });
+})();
+// link "Ver blend" na ficha
+document.addEventListener("click", e => {
+  const b = e.target.closest(".pd-blend"); if(!b) return;
+  e.preventDefault();
+  const card = document.getElementById("blend-" + b.dataset.blend); if(!card) return;
+  history.replaceState(null, "", location.pathname + location.search);
+  sheet.hidden = true; sheet.innerHTML = ""; document.body.style.overflow = ""; document.title = "Catálogo Virtus";
+  card.scrollIntoView({block:"center", inline:"start", behavior: RM ? "auto" : "smooth"});
+  card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash");
+});
+// categoria atual destacada na barra
+(function(){
+  if(!("IntersectionObserver" in window)) return;
+  const vis = new Map();
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => vis.set(e.target.dataset.cat, e.isIntersecting ? e.intersectionRect.height : 0));
+    if(activeCat !== "all" || q.value.trim()){ chips.querySelectorAll(".chip.spy").forEach(c => c.classList.remove("spy")); return; }
+    let best = null, h = 0; vis.forEach((v,k) => { if(v > h){ h = v; best = k; } });
+    chips.querySelectorAll(".chip").forEach(c => {
+      const on = c.dataset.cat === best && c.dataset.cat !== "all";
+      if(on && !c.classList.contains("spy")) chips.scrollTo({left: c.offsetLeft - 16, behavior: RM ? "auto" : "smooth"});
+      c.classList.toggle("spy", on);
+    });
+  }, {rootMargin:"-30% 0px -55% 0px", threshold:[0, .01, .25, .5]});
+  catalog.querySelectorAll(".cat").forEach(s => io.observe(s));
+})();
+// busca instantanea
+(function(){
+  const box = document.createElement("div");
+  box.className = "sugg"; box.id = "sugg"; box.hidden = true; box.setAttribute("role","listbox");
+  document.body.appendChild(box);
+  const form = document.getElementById("searchForm");
+  let items = [], act = -1;
+  const place = () => { const r = form.getBoundingClientRect(); box.style.left = (r.left + scrollX) + "px"; box.style.top = (r.bottom + scrollY + 8) + "px"; box.style.width = r.width + "px"; };
+  const hide = () => { box.hidden = true; act = -1; };
+  function show(){
+    const v = norm(q.value.trim());
+    if(v.length < 2){ hide(); return; }
+    const terms = v.split(/\s+/);
+    const scored = P.map(p => {
+      const card = catalog.querySelector('.card[data-slug="'+p.slug+'"]'); if(!card) return null;
+      const hay = card.dataset.hay; if(!terms.every(t => hay.includes(t))) return null;
+      const n = norm(p.nome); return {p, s: n.startsWith(v) ? 0 : n.includes(v) ? 1 : 2};
+    }).filter(Boolean).sort((a,b) => a.s - b.s);
+    items = scored.slice(0, 6).map(x => x.p);
+    if(!items.length){ box.innerHTML = '<div class="sugg-empty">Nada encontrado para <b>'+esc(q.value.trim())+'</b>. Tente um objetivo, como sono ou pele.</div>'; place(); box.hidden = false; return; }
+    box.innerHTML = items.map((p,i) => {
+      const fi = firstOrderable(p) >= 0 ? firstOrderable(p) : 0;
+      const pr = priceOf(p, fi), up = unitPrice(p, fi, 1);
+      const price = pr == null ? '' : up < pr ? '<s>'+brl(pr)+'</s>'+brl(up) : brl(pr);
+      return '<a href="#'+p.slug+'" role="option" class="sg'+(i===act?' on':'')+'" data-i="'+i+'"><span class="sg-img">'+mediaHTML(p).replace(' loading="lazy"','')+'</span><span class="sg-t"><b>'+esc(p.nome)+'</b><small>'+esc(catOf[p.cat].nome)+'</small></span><span class="sg-p">'+(upcomingOnly(p)?'<small>Em breve</small>':price)+'</span></a>';
+    }).join("") + (scored.length > 6 ? '<button type="button" class="sg-all">Ver todos os '+scored.length+' resultados</button>' : '');
+    place(); box.hidden = false;
+  }
+  q.addEventListener("input", show);
+  q.addEventListener("focus", show);
+  q.addEventListener("keydown", e => {
+    if(box.hidden || !items.length) return;
+    if(e.key === "ArrowDown" || e.key === "ArrowUp"){ e.preventDefault(); act = (act + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length; box.querySelectorAll(".sg").forEach((a,i) => a.classList.toggle("on", i === act)); }
+    else if(e.key === "Enter" && act >= 0){ e.preventDefault(); location.hash = items[act].slug; hide(); q.blur(); }
+    else if(e.key === "Escape") hide();
+  });
+  q.addEventListener("blur", () => setTimeout(hide, 180));
+  box.addEventListener("mousedown", e => e.preventDefault());
+  box.addEventListener("click", e => {
+    if(e.target.closest(".sg-all")){ hide(); form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit")); return; }
+    if(e.target.closest(".sg")){ hide(); q.blur(); track("busca", {termo: q.value.trim()}); }
+  });
+  addEventListener("resize", () => { if(!box.hidden) place(); });
+  form.addEventListener("submit", hide);
+})();
+// miniatura voando ate a lista + vibracao
+function flyToCart(){
+  const src = flySrc; flySrc = null;
+  try{ if(navigator.vibrate && matchMedia("(hover:none)").matches) navigator.vibrate(18); }catch(e){}
+  if(RM || !src) return;
+  const cands = ["mbList","cartFab","mCart"].map(id => document.getElementById(id));
+  const tgt = cands.find(el => { if(!el || !el.offsetParent && getComputedStyle(el).position !== "fixed") return false; const r = el.getBoundingClientRect(); if(!r.width) return false; const hit = document.elementFromPoint(r.left + r.width/2, r.top + r.height/2); return hit && (hit === el || el.contains(hit)); });
+  if(!tgt) return;
+  const a = src.getBoundingClientRect(), b = tgt.getBoundingClientRect();
+  const ghost = src.cloneNode(true);
+  ghost.removeAttribute("id"); ghost.style.cssText = "position:fixed;z-index:80;pointer-events:none;left:"+a.left+"px;top:"+a.top+"px;width:"+a.width+"px;height:"+a.height+"px;border-radius:14px;object-fit:cover;opacity:1;view-transition-name:none";
+  document.body.appendChild(ghost);
+  const dx = b.left + b.width/2 - (a.left + a.width/2), dy = b.top + b.height/2 - (a.top + a.height/2);
+  const anim = ghost.animate([
+    {transform:"translate(0,0) scale(1)", opacity:1},
+    {transform:"translate("+dx*0.55+"px,"+(dy*0.55 - 60)+"px) scale(.45)", opacity:.95, offset:.55},
+    {transform:"translate("+dx+"px,"+dy+"px) scale(.08)", opacity:.3}
+  ], {duration:700, easing:"cubic-bezier(.4,.1,.2,1)"});
+  anim.onfinish = () => { ghost.remove(); tgt.classList.remove("bump"); void tgt.offsetWidth; tgt.classList.add("bump"); };
+}
+
 /* Lista de pedido (carrinho pelo WhatsApp) */
 const CART_KEY = "virtus-lista-v1";
 let cart = [];
@@ -2191,7 +2564,7 @@ function addToCart(slug, vi, q){
   const g = p.v[vi][0]; let it = cart.find(x=>x.slug===slug && x.g===g);
   if(it){ if(it.q >= maxQty(p,vi)){ toast("Limite de "+maxQty(p,vi)+" unidades para "+esc(p.nome)+" "+esc(g)); return; } it.q++; }
   else cart.push(it = {slug, g, q:q||1});
-  saveCart(); renderCart(true);
+  saveCart(); renderCart(true); flyToCart();
   toast('<b>'+esc(p.nome)+' '+esc(g)+'</b> na lista <button type="button" data-cart-open>Ver lista</button>');
   track("lista-adicionar", {produto: p.nome+" "+g});
 }
@@ -2212,6 +2585,10 @@ function cartMsg(){
 function renderCart(bump){
   const n = cart.reduce((a,it)=>a+it.q, 0);
   cartFab.hidden = n === 0; document.getElementById("cartCount").textContent = n;
+  document.body.classList.toggle("has-cart", n > 0);
+  const mc = document.getElementById("mCartCount"); if(mc){ mc.hidden = n === 0; mc.textContent = n; }
+  const mbc = document.getElementById("mbCount"); if(mbc) mbc.textContent = n;
+  const mbi = document.getElementById("mbInfo"); if(mbi){ const tt = cart.reduce((a,it)=>a+line(it).tot, 0); mbi.textContent = n + (n===1?" item · ":" itens · ") + brl(tt); }
   if(bump){ cartFab.classList.remove("bump"); void cartFab.offsetWidth; cartFab.classList.add("bump"); }
   const body = document.getElementById("cartBody"), foot = document.getElementById("cartFoot");
   if(!n){ body.innerHTML = '<div class="cart-empty"><p>Sua lista está vazia.</p><p>Toque em <b>Adicionar à lista</b> nos produtos para montar o pedido e enviar tudo de uma vez pelo WhatsApp.</p></div>'; foot.innerHTML = ""; return; }
@@ -2232,7 +2609,8 @@ function renderCart(bump){
   let frete = "";
   if(BLK && BLACK.freteGratisACada){
     const k = BLACK.freteGratisACada, falta = k - (pep % k || (pep ? k : 0));
-    frete = pep >= k ? '<p class="frete ok">Frete grátis garantido: '+pep+' peptídeos na lista</p>' : '<p class="frete">Faltam '+(k-pep)+' peptídeo'+(k-pep>1?'s':'')+' para o <b>frete grátis</b></p>';
+    const pc = Math.min(pep, k) / k * 100;
+    frete = '<div class="ship'+(pep>=k?' ok':'')+'"><p>'+(pep >= k ? '<b>Frete grátis garantido</b> · '+pep+' peptídeos na lista' : 'Mais <b>'+(k-pep)+' peptídeo'+(k-pep>1?'s':'')+'</b> e o frete é grátis')+'</p><div class="ship-bar"><i style="width:'+pc+'%"></i></div></div>';
   }
   foot.innerHTML = frete +
     (tab > tot ? '<div class="sum-row"><span>Sem desconto</span><s>'+brl(tab)+'</s></div><div class="sum-row save"><span>Economia Black</span><b>− '+brl(tab-tot)+'</b></div>' : '') +
@@ -2248,7 +2626,7 @@ function closeCart(){ cartEl.hidden = true; document.body.classList.remove("cart
 cartFab.addEventListener("click", openCart);
 document.addEventListener("click", e=>{
   const add = e.target.closest("[data-add]");
-  if(add){ e.preventDefault(); addToCart(add.dataset.add, +add.dataset.i); return; }
+  if(add){ e.preventDefault(); const card = add.closest(".card"); flySrc = card ? card.querySelector(".media img, .media svg") : null; addToCart(add.dataset.add, +add.dataset.i); return; }
   if(e.target.closest("[data-cart-open]")){ openCart(); return; }
   if(e.target.closest("[data-cart-close]")){ closeCart(); return; }
   const q = e.target.closest("[data-q]");
