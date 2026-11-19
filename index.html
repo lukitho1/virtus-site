@@ -1859,7 +1859,7 @@ const catalog = document.getElementById("catalog");
 catalog.innerHTML = CATS.map(c=>{
   const items = P.filter(p=>p.cat===c.id);
   return '<section class="cat" id="cat-'+c.id+'" data-cat="'+c.id+'">' +
-    '<div class="cat-head"><div><span class="eyebrow">'+c.code+'</span><h2>'+esc(c.nome)+'</h2><p>'+esc(c.desc)+'</p></div><span class="cat-count">'+items.length+(items.length>1?" itens":" item")+'</span></div>' +
+    '<div class="cat-head"><div><h2>'+esc(c.nome)+'</h2><p>'+esc(c.desc)+'</p></div><span class="cat-count">'+items.length+(items.length>1?" itens":" item")+'</span></div>' +
     '<div class="grid">' + items.map(p=>{
       const specs = p.v.map((v,i)=>{
         if(isUpcoming(v)){
@@ -1890,7 +1890,7 @@ catalog.innerHTML = CATS.map(c=>{
       const hay = norm([p.nome,p.resumo,p.classe,p.atua.join(" "),p.kw||"",c.nome,p.estrutura].join(" "));
       return '<article class="card" data-slug="'+p.slug+'" data-hay="'+esc(hay)+'">' +
         '<a class="card-link" href="#'+p.slug+'" aria-label="Ver ficha de '+esc(p.nome)+'">' +
-          '<div class="media">'+mediaHTML(p)+'<span class="tag-code">'+c.code+'</span>'+starsHTML(p.selos)+bfTag+stTag+'</div>' +
+          '<div class="media">'+mediaHTML(p)+starsHTML(p.selos)+bfTag+stTag+'</div>' +
           '<div class="body"><h3>'+esc(p.nome)+'</h3><p class="sum">'+esc(p.resumo)+'</p><div class="specs">'+specs+'</div>'+priceHTML+'</div>' +
         '</a>' +
         (upcomingOnly(p) ? '' : allOut ? '<span class="card-wa card-off">Esgotado</span>' : mp ? (p.v.filter((v,i)=>orderable(p,i)).length > 1 ? '<a class="card-wa card-add" href="#'+p.slug+'">'+ICON_PLUS+'Escolher e adicionar</a>' : '<button type="button" class="card-wa card-add" data-add="'+p.slug+'" data-i="'+firstOrderable(p)+'">'+ICON_PLUS+'Adicionar à lista</button>') : '<a class="card-wa" href="'+wa(msgFor(p,p.v.findIndex(v=>!isUpcoming(v))))+'" target="_blank" rel="noopener">'+WA_ICON+'Consultar valor</a>') +
@@ -1965,7 +1965,7 @@ function openProduct(slug){
    '<div class="wrap"><div class="pd">' +
      '<div class="pd-media" id="pdMedia"></div>' +
      '<div class="pd-info">' +
-       '<span class="eyebrow">'+c.code+' · '+esc(c.nome)+'</span>' +
+       '<span class="eyebrow">'+esc(c.nome)+'</span>' +
        '<h1 id="pdName">'+esc(p.nome)+'</h1>' +
        '<p class="pd-class">'+esc(p.classe || p.resumo)+'</p>' +
        (seals?'<div class="seals">'+seals+'</div>':'') +
