@@ -971,6 +971,30 @@ footer .wrap{position:relative;padding-block:56px 40px!important;gap:34px!import
 @media (max-width:699px){.art-fig.side img{aspect-ratio:4/5;object-fit:cover}}
 /* Faixa gigante so aparece com o catalogo completo */
 body:not(.rails) .megatype{display:none}
+
+/* Blends com preco (Black) */
+.bw-rail{grid-auto-columns:min(88%,600px)!important}
+.blend.wide{align-items:start}
+.bl-ver{display:inline-flex;gap:4px;margin-top:12px;padding:3px;border-radius:999px;background:rgba(0,0,0,.28)}
+.bl-ver button{border:0;border-radius:999px;background:none;color:rgba(255,255,255,.8);font:700 12px/1 var(--body);padding:8px 12px;cursor:pointer}
+.bl-ver button[aria-pressed="true"]{background:#fff;color:#7A0C1E}
+.bl-offer{margin-top:12px}
+.bl-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px}
+.bl-price s{font-size:14px;color:rgba(255,255,255,.7)}
+.bl-price b{font-family:var(--display);font-weight:900;font-stretch:110%;font-size:clamp(26px,3.4vw,34px);line-height:1;color:#fff}
+.bl-price em{font-style:normal;font-size:12px;font-weight:800;background:#fff;color:#7A0C1E;border-radius:6px;padding:4px 7px}
+.bl-cmp{margin:6px 0 0!important;font-size:12.5px!important;color:rgba(255,255,255,.82)!important;max-width:none!important}
+.bl-cmp s{color:rgba(255,255,255,.65)}
+.bl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.bl-tags span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:4px 9px;color:#fff}
+.bl-tags span.ok{background:#fff;color:#0B0C0E;border-color:#fff}
+.bl-cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.bl-cta .blend-more{margin-top:0!important}
+.blend-buy{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;background:#0B0C0E;color:#fff;font-size:14px;font-weight:800;text-decoration:none;transition:transform .15s,background .2s}
+.blend-buy svg{width:17px;height:17px}
+.blend-buy:hover{background:#000}
+.blend-buy:active{transform:scale(.97)}
+@media (max-width:640px){.bl-cta>a{flex:1 1 auto}}
 </style>
 </head>
 <body>
@@ -1028,38 +1052,10 @@ body:not(.rails) .megatype{display:none}
   </div>
   <div class="wrap bw-blends">
     <div class="bw-bl-head">
-      <div><span class="bw-eyebrow">Blends da Black · 20 a 23/11</span><h3>Os blends que vêm aí</h3></div>
+      <div><span class="bw-eyebrow" id="bwBlEye">Blends da Black · 20 a 23/11</span><h3 id="bwBlTitle">Os blends que vêm aí</h3></div>
       <div class="bw-nav"><button type="button" id="bwPrev" aria-label="Blend anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><button type="button" id="bwNext" aria-label="Próximo blend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div>
     </div>
-    <div class="bw-rail" id="bwRail" tabindex="0" aria-label="Blends da Black Week">
-      <article class="blend wide" id="blend-1">
-        <div class="blend-body">
-          <span class="blend-n">Blend 1</span>
-          <span class="blend-kicker">Secar com Máxima Performance &amp; Sem Flacidez</span>
-          <h4 class="sm">Retatrutida + CJC/Ipamorelin + GHK-Cu</h4>
-          <p>Emagrecer sem flacidez.</p>
-          <a class="blend-more" href="blends/1/" aria-label="Saiba mais sobre o Blend 1">Saiba mais</a>
-        </div>
-        <div class="blend-img"><img src="img/blend-emagrecimento.webp" alt="Frascos de Retatrutida, CJC-1295/Ipamorelin e GHK-Cu Virtus" width="620" height="521" loading="lazy"></div>
-      </article>
-      <article class="blend" id="blend-7">
-        <div class="blend-body">
-          <span class="blend-n">Blend 7</span>
-          <span class="blend-kicker">Intestino &amp; Eixo Intestino-Cérebro</span>
-          <h4>BPC-157 + KPV</h4>
-          <p>Atuação sinérgica no eixo intestino-cérebro.</p>
-          <a class="blend-more" href="blends/7/" aria-label="Saiba mais sobre o Blend 7">Saiba mais</a>
-        </div>
-        <div class="blend-img"><img src="img/blend-bpc-kpv.webp" alt="Frascos de KPV 30 mg e BPC-157 20 mg Virtus" width="272" height="374" loading="lazy"></div>
-      </article>
-      <article class="blend lock">
-        <div>
-          <div class="lock-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-          <h4>Novos blends em breve</h4>
-          <p>Fique de olho: mais combos serão revelados até a Black.</p>
-        </div>
-      </article>
-    </div>
+    <div class="bw-rail" id="bwRail" tabindex="0" aria-label="Blends da Black Week"></div>
     <div class="bw-dots" id="bwDots" aria-hidden="true"></div>
     <div class="bw-swipe">Arraste para o lado →</div>
   </div>
@@ -1684,6 +1680,7 @@ body:not(.rails) .megatype{display:none}
 <script src="dados/estoque.js"></script>
 <script src="dados/black.js"></script>
 <script src="dados/blends.js"></script>
+<script src="blends/oferta.js"></script>
 <script>
 (function(){
 const PHONE = "5581985779232";
@@ -2083,7 +2080,8 @@ function msgFor(p, vi){
   const v = p.v[vi||0];
   const pr = unitPrice(p, vi||0, 1);
   return pr!=null
-    ? "Olá, equipe Virtus! Vi no catálogo e quero comprar o " + p.nome + " " + v[0] + " (" + brl(pr) + (BLK && blackTiers(p, vi||0) ? ", preço da Black" : "") + ")."
+    ? "Olá, equipe Virtus! Vi no catálogo e quero comprar o " + p.nome + " " + v[0] + " (" + brl(pr) + (BLK && blackTiers(p, vi||0) ? ", preço da Black" : "") + ")." +
+      (BLK && (blackTiers(p, vi||0)||[]).length > 1 ? " Progressivo da Black: " + blackTiers(p, vi||0).map((t,k)=>(k+1)+(k===2?"+":"")+" un "+brl(t)+" cada").join(" · ") + "." : "")
     : "Olá, equipe Virtus! Vi no catálogo e quero saber valor e disponibilidade do " + p.nome + " " + v[0] + ".";
 }
 
@@ -2112,6 +2110,35 @@ const general = wa("Olá, equipe Virtus! Vim pelo catálogo e quero ajuda para e
 /* Black Week: carrossel de blends */
 (function(){
   const rail = document.getElementById("bwRail"); if(!rail) return;
+  const O = window.VirtusOferta, BL = (window.VIRTUS_BLENDS || []).filter(b => b.revelado);
+  const fase = O ? O.fase() : "antes";
+  const sec = rail.closest(".bw-blends");
+  if(fase === "fim"){ if(sec) sec.hidden = true; return; }
+  if(fase === "ativo"){
+    const e = document.getElementById("bwBlEye"), t = document.getElementById("bwBlTitle");
+    if(e) e.textContent = "Blends da Black · até 23/11, 23h59"; if(t) t.textContent = "Os blends da Black";
+  }
+  const verBtns = b => b.versoes.length < 2 ? "" : '<div class="bl-ver" role="group" aria-label="Versão do Blend '+b.n+'">' + b.versoes.map((v,i) => '<button type="button" data-v="'+i+'" aria-pressed="'+(i===0)+'">'+esc(v.nome)+'</button>').join("") + '</div>';
+  function offer(b, vi){
+    if(fase !== "ativo" || !O) return '<span class="blend-soon">Preço revelado em 20/11, às 12h</span>';
+    const r = O.resumo(b.versoes[vi]);
+    return '<div class="bl-price"><s>de '+brl(r.de)+'</s><b>'+brl(r.por)+'</b><em>-'+r.off+'%</em></div>' +
+      '<p class="bl-cmp">Separados na Black: <s>'+brl(r.somaBlack)+'</s> · você economiza '+brl(r.economia)+' na tabela</p>' +
+      '<div class="bl-tags">'+(r.frete?'<span class="ok">Frete grátis</span>':'')+'<span>Lote de 5 kits</span></div>';
+  }
+  rail.innerHTML = BL.map(b => '<article class="blend wide" id="blend-'+b.n+'" data-n="'+b.n+'">' +
+    '<div class="blend-body"><span class="blend-n">Blend '+b.n+'</span><span class="blend-kicker">'+esc(b.nome)+'</span>' +
+    '<h4 class="sm">'+esc(b.curto)+'</h4><p>'+esc(b.frase)+'</p>' + verBtns(b) +
+    '<div class="bl-offer">'+offer(b,0)+'</div>' +
+    '<div class="bl-cta">'+(fase==="ativo"&&O?'<a class="blend-buy" target="_blank" rel="noopener" href="'+O.wa(O.msg(b,0))+'">'+WA_ICON+'Quero este blend</a>':'')+'<a class="blend-more" href="blends/'+b.n+'/" aria-label="Saiba mais sobre o Blend '+b.n+'">Saiba mais</a></div></div>' +
+    '<div class="blend-img"><img src="img/'+b.foto+'" alt="Frascos do Blend '+b.n+' Virtus" loading="lazy" decoding="async"></div></article>').join("");
+  rail.addEventListener("click", e => {
+    const v = e.target.closest(".bl-ver button"); if(!v) return;
+    const card = v.closest(".blend"), b = BL.filter(x => String(x.n) === card.dataset.n)[0], vi = +v.dataset.v;
+    card.querySelectorAll(".bl-ver button").forEach(x => x.setAttribute("aria-pressed", String(x === v)));
+    card.querySelector(".bl-offer").innerHTML = offer(b, vi);
+    const buy = card.querySelector(".blend-buy"); if(buy && O) buy.href = O.wa(O.msg(b, vi));
+  });
   const cards = [...rail.children], dots = document.getElementById("bwDots");
   const prev = document.getElementById("bwPrev"), next = document.getElementById("bwNext");
   dots.innerHTML = cards.map(() => "<i></i>").join("");
