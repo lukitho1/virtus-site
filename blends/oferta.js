@@ -40,8 +40,8 @@
     var nomeV = b.versoes.length > 1 ? " (" + v.nome + ")" : "";
     return "Olá, equipe Virtus! Tenho interesse no Blend " + b.n + " · " + b.nome + nomeV + ".\n\n" +
       "Itens do blend:\n" + linhas.join("\n") + "\n\n" +
-      "Separados (tabela): " + brl(r.somaTabela) + "\n" +
-      "Separados com o desconto individual da Black (24 a 27/11): " + brl(r.somaBlack) + "\n" +
+      "Comprando individualmente (tabela): " + brl(r.somaTabela) + "\n" +
+      "Comprando individualmente na Black (24 a 27/11): " + brl(r.somaBlack) + "\n" +
       "No blend: de " + brl(r.de) + " por " + brl(r.por) + " (" + r.off + "% off · economia de " + brl(r.economia) + ")" +
       (r.frete ? "\nCom frete grátis." : "") + "\nLote promocional de 5 kits.\n\nPodem confirmar a disponibilidade?";
   }

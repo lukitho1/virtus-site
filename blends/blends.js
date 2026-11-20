@@ -78,10 +78,10 @@
     "8": {
       vials: [
         {img:"ghk-cu-100", nome:"GHK-Cu", g:"100mg", slug:"ghk-cu"},
-        {img:null, nome:"AHK-Cu", g:"100mg", slug:"ahk-cu"}
+        {img:"ahk-cu", nome:"AHK-Cu", g:"100mg", slug:"ahk-cu"}
       ],
       perfil: ["hair","hair","sparkle","shield"],
-      sinergia: ["ghk-cu-100",null]
+      sinergia: ["ghk-cu-100","ahk-cu"]
     },
     "7": {
       vials: [
@@ -174,16 +174,16 @@
       if(fase === "antes") box.innerHTML = ver + '<p class="soon">Preço revelado em 20/11, às 12h</p>';
       else if(fase === "fim") box.innerHTML = '<p class="soon">Os blends da Black Week foram encerrados em 23/11.</p>';
       else box.innerHTML = ver + '<div class="price"><s>de ' + O.brl(r.de) + '</s><b>' + O.brl(r.por) + '</b><em>-' + r.off + '%</em></div>' +
-        '<p class="save">Você economiza ' + O.brl(r.economia) + ' · separados na Black sairiam por ' + O.brl(r.somaBlack) + '</p>' +
+        '<p class="save">Comprando individualmente na Black: <s>' + O.brl(r.somaBlack) + '</s><br>Economia de ' + O.brl(r.economia) + ' sobre a tabela</p>' +
         '<div class="tags">' + (r.frete ? '<span class="ok">Frete grátis</span>' : '') + '<span>Lote de 5 kits</span><span>Até 23/11, 23h59</span></div>';
       if(tbl) tbl.innerHTML = '<div class="cmp-scroll"><table class="cmp"><thead><tr><th>Item</th><th>Tabela</th><th>Individual na Black<br><small>24 a 27/11</small></th></tr></thead><tbody>' +
         r.itens.map(function(x){
           var bl = x.black ? (x.black.length > 1 ? x.black.map(function(t, k){ return '<span>' + (k + 1) + (k === x.black.length - 1 && x.black.length === 3 ? '+' : '') + ' un <b>' + O.brl(t) + '</b></span>'; }).join("") : '<b>' + O.brl(x.black[0]) + '</b>') : '—';
           return '<tr><td><b>' + x.nome + '</b> ' + x.g.replace(/\s*\/\s*/g, "/") + '</td><td>' + (x.tabela ? O.brl(x.tabela) : '—') + '</td><td class="tiers">' + bl + '</td></tr>';
         }).join("") +
-        '</tbody><tfoot><tr><td>Separados</td><td><s>' + O.brl(r.somaTabela) + '</s></td><td><s>' + O.brl(r.somaBlack) + '</s></td></tr>' +
+        '</tbody><tfoot><tr><td>Comprando individualmente</td><td><s>' + O.brl(r.somaTabela) + '</s></td><td><s>' + O.brl(r.somaBlack) + '</s></td></tr>' +
         '<tr class="hl"><td>No blend' + (b.versoes.length > 1 ? ' · ' + v.nome : '') + '</td><td colspan="2"><b>' + O.brl(r.por) + '</b> <em>-' + r.off + '%</em>' + (r.frete ? ' · frete grátis' : '') + '</td></tr></tfoot></table></div>' +
-        '<p class="cmp-note">O blend é sempre a melhor compra: mesmo com o desconto individual da Black, os itens separados saem mais caros.</p>';
+        '<p class="cmp-note">O blend é sempre a melhor compra: mesmo comprando individualmente na Black, os itens saem mais caros.</p>';
       var url = fase === "ativo" ? O.wa(O.msg(b, vi)) : O.wa("Olá, equipe Virtus! Tenho interesse no Blend " + b.n + " · " + b.nome + ".");
       $$("a.buy").forEach(function(a){ a.href = url; });
     }

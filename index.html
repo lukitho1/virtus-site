@@ -1963,7 +1963,7 @@ const FOTOS = {
   "dsip":{"10mg":"dsip"}, "nad":{"1000mg":"nad"}, "ss-31":{"100mg":"ss-31"},
   "tesamorelin":{"10mg":"tesamorelin-10","20mg":"tesamorelin-20"}, "tirzepatida":{"60mg":"tirzepatida"},
   "thymosin-alpha-1":{"10mg":"thymosin-alpha-1"}, "kpv":{"30mg":"kpv"}, "glutationa":{"600mg":"glutationa"},
-  "glow":{"70mg":"glow"}, "klow":{"80mg":"klow"}, "agua-bac":{"10 mL":"agua-bac-10","3 mL":"agua-bac-3"}, "cartalax":{"20mg":"cartalax-20"}
+  "glow":{"70mg":"glow"}, "klow":{"80mg":"klow"}, "agua-bac":{"10 mL":"agua-bac-10","3 mL":"agua-bac-3"}, "cartalax":{"20mg":"cartalax-20"}, "ahk-cu":{"100mg":"ahk-cu"}
 };
 
 /* Preços da tabela (nov/2026). Produto sem preço aqui mostra "Consultar valor". */
@@ -2123,7 +2123,7 @@ const general = wa("Olá, equipe Virtus! Vim pelo catálogo e quero ajuda para e
     if(fase !== "ativo" || !O) return '<span class="blend-soon">Preço revelado em 20/11, às 12h</span>';
     const r = O.resumo(b.versoes[vi]);
     return '<div class="bl-price"><s>de '+brl(r.de)+'</s><b>'+brl(r.por)+'</b><em>-'+r.off+'%</em></div>' +
-      '<p class="bl-cmp">Separados na Black: <s>'+brl(r.somaBlack)+'</s> · você economiza '+brl(r.economia)+' na tabela</p>' +
+      '<p class="bl-cmp">Comprando individualmente na Black: <s>'+brl(r.somaBlack)+'</s><br>Economia de '+brl(r.economia)+' sobre a tabela</p>' +
       '<div class="bl-tags">'+(r.frete?'<span class="ok">Frete grátis</span>':'')+'<span>Lote de 5 kits</span></div>';
   }
   rail.innerHTML = BL.map(b => '<article class="blend wide" id="blend-'+b.n+'" data-n="'+b.n+'">' +
