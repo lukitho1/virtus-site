@@ -1682,6 +1682,7 @@ body:not(.rails) .megatype{display:none}
 <script src="dados/black.js"></script>
 <script src="dados/blends.js"></script>
 <script src="blends/oferta.js"></script>
+<script src="blends/bac.js"></script>
 <script>
 (function(){
 const PHONE = "5581985779232";
@@ -2134,6 +2135,18 @@ const general = wa("Olá, equipe Virtus! Vim pelo catálogo e quero ajuda para e
     '<div class="bl-cta">'+(fase==="ativo"&&O?'<a class="blend-buy" target="_blank" rel="noopener" href="'+O.wa(O.msg(b,0))+'">'+WA_ICON+'Quero este blend</a>':'')+'<a class="blend-more" href="blends/'+b.n+'/" aria-label="Saiba mais sobre o Blend '+b.n+'">Saiba mais</a>'+(b.video?'<a class="blend-video" href="blends/'+b.n+'/#video">▶ Assista ao vídeo</a>':'')+'</div></div>' +
     '<div class="blend-img"><img src="img/'+b.foto+'" alt="Frascos do Blend '+b.n+' Virtus" loading="lazy" decoding="async"></div></article>').join("");
   rail.addEventListener("click", e => {
+    const bb = e.target.closest(".blend-buy");
+    if(bb && O && window.VirtusBAC){
+      e.preventDefault();
+      const card = bb.closest(".blend"), b = BL.filter(x => String(x.n) === card.dataset.n)[0];
+      const on = card.querySelector('.bl-ver button[aria-pressed="true"]'), vi = on ? +on.dataset.v : 0;
+      window.VirtusBAC.ask({vials: O.frascos(b, vi), confirm: "Adicionar e enviar no WhatsApp", confirmEmpty: "Enviar no WhatsApp sem água", skip: "Não, enviar sem água BAC", done: sel => {
+        const url = O.wa(O.msg(b, vi, sel));
+        track("whatsapp", {origem: "blend-" + b.n});
+        const w = window.open(url, "_blank"); if(w) w.opener = null; else location.href = url;
+      }});
+      return;
+    }
     const v = e.target.closest(".bl-ver button"); if(!v) return;
     const card = v.closest(".blend"), b = BL.filter(x => String(x.n) === card.dataset.n)[0], vi = +v.dataset.v;
     card.querySelectorAll(".bl-ver button").forEach(x => x.setAttribute("aria-pressed", String(x === v)));
@@ -2845,6 +2858,25 @@ function addToCart(slug, vi, q){
   saveCart(); renderCart(true); flyToCart();
   toast('<b>'+esc(p.nome)+' '+esc(g)+'</b> na lista <button type="button" data-cart-open>Ver lista</button>');
   track("lista-adicionar", {produto: p.nome+" "+g});
+  if(p.cat !== "insumos") setTimeout(askBac, 650);
+}
+/* Depois de adicionar um peptideo: oferece Agua BAC (3 mL por frasco) */
+function askBac(){
+  if(!window.VirtusBAC || document.querySelector(".bac-ov")) return;
+  const vials = cart.reduce((a,it)=>a + ((bySlug[it.slug]||{}).cat !== "insumos" ? it.q : 0), 0);
+  const have = cart.reduce((a,it)=>a + (it.slug === "agua-bac" ? (parseFloat(it.g) || 0) * it.q : 0), 0);
+  if(!vials || have >= vials * window.VirtusBAC.ML_POR_FRASCO) return;
+  window.VirtusBAC.ask({vials, have, confirm: "Adicionar à lista", skip: "Não, obrigado", done: sel => {
+    if(!sel) return;
+    [["10 mL", sel.q10], ["3 mL", sel.q3]].forEach(([g, q]) => {
+      if(!q) return;
+      let it = cart.find(x => x.slug === "agua-bac" && x.g === g);
+      if(it) it.q += q; else cart.push({slug: "agua-bac", g, q});
+    });
+    saveCart(); renderCart(true);
+    toast('<b>Água BAC</b> na lista <button type="button" data-cart-open>Ver lista</button>');
+    track("lista-agua-bac", {ml: sel.q3 * 3 + sel.q10 * 10});
+  }});
 }
 function setQty(i, q){
   const it = cart[i]; if(!it) return; const p = bySlug[it.slug], vi = viOf(it);

@@ -156,7 +156,7 @@
   function mountOffer(){
     var O = window.VirtusOferta; if(!O) return;
     var b = O.blend(key); if(!b) return;
-    var fase = O.fase(), vi = 0;
+    var fase = O.fase(), vi = 0, curVi = 0;
     var intro = $(".intro"), cta = $(".hero-cta");
     var box = document.createElement("div"); box.className = "offer";
     if(intro) intro.insertBefore(box, cta || null);
@@ -186,12 +186,23 @@
         '<p class="cmp-note">O blend é sempre a melhor compra: mesmo comprando individualmente na Black, os itens saem mais caros.</p>';
       var url = fase === "ativo" ? O.wa(O.msg(b, vi)) : O.wa("Olá, equipe Virtus! Tenho interesse no Blend " + b.n + " · " + b.nome + ".");
       $$("a.buy").forEach(function(a){ a.href = url; });
+      curVi = vi;
+    }
+    if(!document.body.dataset.bacHook){
+      document.body.dataset.bacHook = "1";
+      document.addEventListener("click", function(e){
+        var a = e.target.closest("a.buy"); if(!a || O.fase() !== "ativo" || !window.VirtusBAC) return;
+        e.preventDefault();
+        window.VirtusBAC.ask({vials: O.frascos(b, curVi), confirm: "Adicionar e enviar no WhatsApp", confirmEmpty: "Enviar no WhatsApp sem água", skip: "Não, enviar sem água BAC", done: function(sel){
+          var url = O.wa(O.msg(b, curVi, sel)); var w = window.open(url, "_blank"); if(w) w.opener = null; else location.href = url;
+        }});
+      });
     }
     box.addEventListener("click", function(e){ var t = e.target.closest("[data-v]"); if(!t) return; vi = +t.dataset.v; render(); });
     render();
   }
   var ROOTD = "../../dados/";
-  loadScript(ROOTD + "precos.js").then(function(){ return loadScript(ROOTD + "black.js"); }).then(function(){ return loadScript(ROOTD + "blends.js"); }).then(function(){ return loadScript("../oferta.js"); }).then(mountOffer);
+  loadScript(ROOTD + "precos.js").then(function(){ return loadScript(ROOTD + "black.js"); }).then(function(){ return loadScript(ROOTD + "blends.js"); }).then(function(){ return loadScript("../oferta.js"); }).then(function(){ return loadScript("../bac.js"); }).then(mountOffer);
 
   // video: botao de play grande
   $$(".vid").forEach(function(v){
