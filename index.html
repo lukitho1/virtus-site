@@ -990,6 +990,12 @@ body:not(.rails) .megatype{display:none}
 .bl-tags span.ok{background:#fff;color:#0B0C0E;border-color:#fff}
 .bl-cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .bl-cta .blend-more{margin-top:0!important}
+.bl-out{display:inline-flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.35);border:1.5px solid rgba(255,255,255,.45)}
+.bl-out b{font-family:var(--display);font-weight:900;font-stretch:110%;font-size:22px;letter-spacing:.02em;text-transform:uppercase;color:#fff}
+.bl-out span{font-size:13px;color:rgba(255,255,255,.85)}
+.blend.sold{background:linear-gradient(135deg,#3a3b42,#23242a 60%,#16171c)!important;border-color:rgba(255,255,255,.18)!important}
+.blend.sold .blend-img img{filter:grayscale(1) brightness(.7)}
+.sold-tag{position:absolute;z-index:3;right:-46px;top:26px;transform:rotate(35deg);background:var(--red);color:#fff;font-weight:900;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:6px 52px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
 .blend-video{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;color:#fff;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
 .blend-buy{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;background:#0B0C0E;color:#fff;font-size:14px;font-weight:800;text-decoration:none;transition:transform .15s,background .2s}
 .blend-buy svg{width:17px;height:17px}
@@ -2001,7 +2007,7 @@ const BLENDS = window.VIRTUS_BLENDS || [];
 const BLENDS_FIM = Date.parse("2026-11-23T23:59:59-03:00"), BLENDS_INI = Date.parse("2026-11-20T12:00:00-03:00");
 function blendsFor(p){
   if(Date.now() > BLENDS_FIM) return "";
-  const list = BLENDS.filter(b => b.revelado && b.itens.includes(p.slug) && document.getElementById("blend-" + b.n));
+  const list = BLENDS.filter(b => b.revelado && !b.esgotado && b.itens.includes(p.slug) && document.getElementById("blend-" + b.n));
   if(!list.length) return "";
   const antes = Date.now() < BLENDS_INI;
   return '<span class="eyebrow">Na Black Week</span>' + list.map(b =>
@@ -2122,17 +2128,18 @@ const general = wa("Olá, equipe Virtus! Vim pelo catálogo e quero ajuda para e
   }
   const verBtns = b => b.versoes.length < 2 ? "" : '<div class="bl-ver" role="group" aria-label="Versão do Blend '+b.n+'">' + b.versoes.map((v,i) => '<button type="button" data-v="'+i+'" aria-pressed="'+(i===0)+'">'+esc(v.nome)+'</button>').join("") + '</div>';
   function offer(b, vi){
+    if(b.esgotado) return '<div class="bl-out"><b>Esgotado</b><span>O lote deste blend acabou.</span></div>';
     if(fase !== "ativo" || !O) return '<span class="blend-soon">Preço revelado em 20/11, às 12h</span>';
     const r = O.resumo(b.versoes[vi]);
     return '<div class="bl-price"><s>de '+brl(r.de)+'</s><b>'+brl(r.por)+'</b><em>-'+r.off+'%</em></div>' +
       '<p class="bl-cmp">Comprando individualmente na Black: <s>'+brl(r.somaBlack)+'</s><br>Economia de '+brl(r.economia)+' sobre a tabela</p>' +
       '<div class="bl-tags">'+(r.frete?'<span class="ok">Frete grátis</span>':'')+'<span>Lote de 5 kits</span></div>';
   }
-  rail.innerHTML = BL.map(b => '<article class="blend wide" id="blend-'+b.n+'" data-n="'+b.n+'">' +
+  rail.innerHTML = BL.map(b => '<article class="blend wide'+(b.esgotado?' sold':'')+'" id="blend-'+b.n+'" data-n="'+b.n+'">' + (b.esgotado?'<span class="sold-tag" aria-hidden="true">Esgotado</span>':'') +
     '<div class="blend-body"><span class="blend-n">Blend '+b.n+'</span><span class="blend-kicker">'+esc(b.nome)+'</span>' +
     '<h4 class="sm">'+esc(b.curto)+'</h4><p>'+esc(b.frase)+'</p>' + verBtns(b) +
     '<div class="bl-offer">'+offer(b,0)+'</div>' +
-    '<div class="bl-cta">'+(fase==="ativo"&&O?'<a class="blend-buy" target="_blank" rel="noopener" href="'+O.wa(O.msg(b,0))+'">'+WA_ICON+'Quero este blend</a>':'')+'<a class="blend-more" href="blends/'+b.n+'/" aria-label="Saiba mais sobre o Blend '+b.n+'">Saiba mais</a>'+(b.video?'<a class="blend-video" href="blends/'+b.n+'/#video">▶ Assista ao vídeo</a>':'')+'</div></div>' +
+    '<div class="bl-cta">'+(fase==="ativo"&&O&&!b.esgotado?'<a class="blend-buy" target="_blank" rel="noopener" href="'+O.wa(O.msg(b,0))+'">'+WA_ICON+'Quero este blend</a>':'')+'<a class="blend-more" href="blends/'+b.n+'/" aria-label="Saiba mais sobre o Blend '+b.n+'">Saiba mais</a>'+(b.video?'<a class="blend-video" href="blends/'+b.n+'/#video">▶ Assista ao vídeo</a>':'')+'</div></div>' +
     '<div class="blend-img"><img src="img/'+b.foto+'" alt="Frascos do Blend '+b.n+' Virtus" loading="lazy" decoding="async"></div></article>').join("");
   rail.addEventListener("click", e => {
     const bb = e.target.closest(".blend-buy");

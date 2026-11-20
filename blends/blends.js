@@ -171,7 +171,8 @@
     function render(){
       var v = b.versoes[vi], r = O.resumo(v);
       var ver = b.versoes.length > 1 ? '<div class="ver" role="group" aria-label="Versão">' + b.versoes.map(function(x, i){ return '<button type="button" data-v="' + i + '" aria-pressed="' + (i === vi) + '">' + x.nome + '</button>'; }).join("") + '</div>' : '';
-      if(fase === "antes") box.innerHTML = ver + '<p class="soon">Preço revelado em 20/11, às 12h</p>';
+      if(b.esgotado) box.innerHTML = '<div class="sold-box"><b>Esgotado</b><span>O lote deste blend acabou.</span></div>';
+      else if(fase === "antes") box.innerHTML = ver + '<p class="soon">Preço revelado em 20/11, às 12h</p>';
       else if(fase === "fim") box.innerHTML = '<p class="soon">Os blends da Black Week foram encerrados em 23/11.</p>';
       else box.innerHTML = ver + '<div class="price"><s>de ' + O.brl(r.de) + '</s><b>' + O.brl(r.por) + '</b><em>-' + r.off + '%</em></div>' +
         '<p class="save">Comprando individualmente na Black: <s>' + O.brl(r.somaBlack) + '</s><br>Economia de ' + O.brl(r.economia) + ' sobre a tabela</p>' +
@@ -186,12 +187,13 @@
         '<p class="cmp-note">O blend é sempre a melhor compra: mesmo comprando individualmente na Black, os itens saem mais caros.</p>';
       var url = fase === "ativo" ? O.wa(O.msg(b, vi)) : O.wa("Olá, equipe Virtus! Tenho interesse no Blend " + b.n + " · " + b.nome + ".");
       $$("a.buy").forEach(function(a){ a.href = url; });
+      if(b.esgotado){ document.body.classList.add("is-sold"); $$("a.buy").forEach(function(a){ a.hidden = true; }); }
       curVi = vi;
     }
     if(!document.body.dataset.bacHook){
       document.body.dataset.bacHook = "1";
       document.addEventListener("click", function(e){
-        var a = e.target.closest("a.buy"); if(!a || O.fase() !== "ativo" || !window.VirtusBAC) return;
+        var a = e.target.closest("a.buy"); if(!a || b.esgotado || O.fase() !== "ativo" || !window.VirtusBAC) return;
         e.preventDefault();
         window.VirtusBAC.ask({vials: O.frascos(b, curVi), confirm: "Adicionar e enviar no WhatsApp", confirmEmpty: "Enviar no WhatsApp sem água", skip: "Não, enviar sem água BAC", done: function(sel){
           var url = O.wa(O.msg(b, curVi, sel)); var w = window.open(url, "_blank"); if(w) w.opener = null; else location.href = url;

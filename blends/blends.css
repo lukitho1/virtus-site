@@ -200,3 +200,14 @@ section p{margin:0;color:var(--silver);font-size:1.09rem;line-height:1.78}
 .vid-play:hover span{transform:scale(1.06)}
 .vid.playing .vid-play{display:none}
 .vid-credit{margin-top:10px!important;font-size:.85rem!important;color:var(--muted)!important}
+
+/* Blend esgotado */
+.sold-box{display:inline-flex;flex-direction:column;gap:2px;padding:12px 16px;border-radius:14px;background:rgba(0,0,0,.35);border:1.5px solid rgba(255,255,255,.5)}
+.sold-box b{font-family:var(--display);font-weight:900;font-stretch:110%;font-size:1.8rem;text-transform:uppercase;letter-spacing:.02em;color:#fff}
+.sold-box span{font-size:.92rem;color:rgba(255,255,255,.88)}
+body.is-sold .hero{background:linear-gradient(135deg,#3a3b42,#23242a 60%,#16171c);border-color:rgba(255,255,255,.18)}
+body.is-sold .hero figure img{filter:grayscale(1) brightness(.75) drop-shadow(0 22px 30px rgba(0,0,0,.6))}
+body.is-sold #valores,body.is-sold .mbuy,body.is-sold .closing{display:none!important}
+body.is-sold a[href="#valores"]{display:none}
+
+[hidden]{display:none!important}

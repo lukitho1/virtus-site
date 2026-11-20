@@ -4,6 +4,7 @@
      de / por: preco "de/por" do blend (sem R$, sem ponto de milhar)
      frete: true quando o blend tem frete gratis
    revelado: false esconde o blend do carrossel e das fichas.
+   esgotado: true mostra "Esgotado" no card e na pagina e tira o botao de compra.
    foto: imagem em img/. pagina: blends/N/ (botao "Saiba mais"). */
 window.VIRTUS_BLENDS = [
   {n: 1, nome: "Secar com Máxima Performance & Sem Flacidez", curto: "Retatrutida + CJC/Ipamorelin + GHK-Cu", frase: "Emagrecer sem flacidez.",
@@ -37,7 +38,7 @@ window.VIRTUS_BLENDS = [
    foto: "blend-bpc-kpv.webp", revelado: true,
    versoes: [{nome: "Blend completo", itens: [["bpc-157","20mg"],["kpv","30mg"]], de: 1760, por: 1320, frete: true}]},
   {n: 8, nome: "Cabelo & Rejuvenescimento", curto: "GHK-Cu + AHK-Cu", frase: "Dois peptídeos de cobre: pele e folículo.",
-   foto: "blend-cabelo.webp", revelado: true,
+   foto: "blend-cabelo.webp", esgotado: true, revelado: true,
    versoes: [{nome: "Blend completo", itens: [["ghk-cu","100mg"],["ahk-cu","100mg"]], de: 1240, por: 865}]}
 ];
 /* compatibilidade: lista de produtos de cada blend (usada na ficha "Na Black Week") */
