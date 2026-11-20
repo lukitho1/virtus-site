@@ -190,3 +190,13 @@ section p{margin:0;color:var(--silver);font-size:1.09rem;line-height:1.78}
 .cmp tr.hl b{font-family:var(--display);font-weight:900;font-size:1.3rem}
 .cmp tr.hl em{font-style:normal;font-weight:800;font-size:.75rem;background:var(--red);color:#fff;border-radius:6px;padding:3px 7px;margin-left:6px}
 .cmp-note{margin-top:12px!important;font-size:.92rem!important;color:var(--muted)!important}
+
+/* Video no blend */
+.vid{position:relative;width:min(100%,380px);aspect-ratio:9/16;border-radius:20px;overflow:hidden;border:1px solid var(--line-2);background:#000;box-shadow:0 24px 50px rgba(0,0,0,.5)}
+.vid video{display:block;width:100%;height:100%;object-fit:cover;background:#000}
+.vid-play{position:absolute;inset:0;border:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.55));cursor:pointer;display:flex;align-items:center;justify-content:center}
+.vid-play span{width:76px;height:76px;border-radius:50%;background:var(--red);box-shadow:0 12px 30px rgba(224,32,63,.5);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.vid-play span::after{content:"";margin-left:6px;border-left:24px solid #fff;border-top:15px solid transparent;border-bottom:15px solid transparent}
+.vid-play:hover span{transform:scale(1.06)}
+.vid.playing .vid-play{display:none}
+.vid-credit{margin-top:10px!important;font-size:.85rem!important;color:var(--muted)!important}

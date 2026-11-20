@@ -193,6 +193,12 @@
   var ROOTD = "../../dados/";
   loadScript(ROOTD + "precos.js").then(function(){ return loadScript(ROOTD + "black.js"); }).then(function(){ return loadScript(ROOTD + "blends.js"); }).then(function(){ return loadScript("../oferta.js"); }).then(mountOffer);
 
+  // video: botao de play grande
+  $$(".vid").forEach(function(v){
+    var vd = $("video", v), bt = $(".vid-play", v); if(!vd || !bt) return;
+    bt.addEventListener("click", function(){ v.classList.add("playing"); vd.play().catch(function(){}); });
+    vd.addEventListener("play", function(){ v.classList.add("playing"); });
+  });
   // indice que acompanha a leitura
   var links = $$(".layout > nav a");
   var secs = links.map(function(a){ return document.getElementById(a.getAttribute("href").slice(1)); }).filter(Boolean);

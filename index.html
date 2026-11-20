@@ -990,6 +990,7 @@ body:not(.rails) .megatype{display:none}
 .bl-tags span.ok{background:#fff;color:#0B0C0E;border-color:#fff}
 .bl-cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .bl-cta .blend-more{margin-top:0!important}
+.blend-video{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;color:#fff;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
 .blend-buy{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;background:#0B0C0E;color:#fff;font-size:14px;font-weight:800;text-decoration:none;transition:transform .15s,background .2s}
 .blend-buy svg{width:17px;height:17px}
 .blend-buy:hover{background:#000}
@@ -2130,7 +2131,7 @@ const general = wa("Olá, equipe Virtus! Vim pelo catálogo e quero ajuda para e
     '<div class="blend-body"><span class="blend-n">Blend '+b.n+'</span><span class="blend-kicker">'+esc(b.nome)+'</span>' +
     '<h4 class="sm">'+esc(b.curto)+'</h4><p>'+esc(b.frase)+'</p>' + verBtns(b) +
     '<div class="bl-offer">'+offer(b,0)+'</div>' +
-    '<div class="bl-cta">'+(fase==="ativo"&&O?'<a class="blend-buy" target="_blank" rel="noopener" href="'+O.wa(O.msg(b,0))+'">'+WA_ICON+'Quero este blend</a>':'')+'<a class="blend-more" href="blends/'+b.n+'/" aria-label="Saiba mais sobre o Blend '+b.n+'">Saiba mais</a></div></div>' +
+    '<div class="bl-cta">'+(fase==="ativo"&&O?'<a class="blend-buy" target="_blank" rel="noopener" href="'+O.wa(O.msg(b,0))+'">'+WA_ICON+'Quero este blend</a>':'')+'<a class="blend-more" href="blends/'+b.n+'/" aria-label="Saiba mais sobre o Blend '+b.n+'">Saiba mais</a>'+(b.video?'<a class="blend-video" href="blends/'+b.n+'/#video">▶ Assista ao vídeo</a>':'')+'</div></div>' +
     '<div class="blend-img"><img src="img/'+b.foto+'" alt="Frascos do Blend '+b.n+' Virtus" loading="lazy" decoding="async"></div></article>').join("");
   rail.addEventListener("click", e => {
     const v = e.target.closest(".bl-ver button"); if(!v) return;

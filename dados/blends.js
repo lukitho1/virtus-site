@@ -16,7 +16,7 @@ window.VIRTUS_BLENDS = [
    foto: "blend-energia.webp", revelado: true,
    versoes: [{nome: "Blend completo", itens: [["retatrutida","40mg"],["nad","1000mg"],["ghk-cu","100mg"]], de: 3350, por: 2350}]},
   {n: 3, nome: "Recuperação & Articulações", curto: "BPC-157 + TB-500", frase: "Protocolo Wolverine: reparo com mais mobilidade.",
-   foto: "blend-recuperacao.webp", revelado: true,
+   foto: "blend-recuperacao.webp", video: true, revelado: true,
    versoes: [{nome: "Intensivo", itens: [["bpc-157","20mg"],["tb-500","20mg"]], de: 1860, por: 1302}]},
   {n: 4, nome: "Lipedema & Desinflamação", curto: "Tirzepatida + BPC-157 + KPV", frase: "Para a gordura resistente de pernas e quadril.",
    foto: "blend-lipedema.webp", revelado: true,
