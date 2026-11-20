@@ -583,7 +583,8 @@ footer .wrap{padding-block:34px 90px;display:grid;gap:22px}
 .pd-price b s{display:block;font-size:.5em;margin:0 0 2px}
 .price s,.pd-price s,.var em s,.ci s,.sum-row s{color:var(--muted);font-weight:500;text-decoration-thickness:1.5px;margin-right:6px;font-size:.72em}
 .price.bf{color:var(--red-hi)}
-.tier{margin:2px 0 0;font-size:12px;font-weight:600;color:var(--silver)}
+.tier{margin:2px 0 0;font-size:12px;font-weight:600;color:var(--silver);line-height:1.45}
+.tier b{color:var(--red-hi);font-weight:800}
 .bf-tag,.st-tag{position:absolute;left:10px;bottom:10px;z-index:2;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:4px 8px;color:#fff;background:var(--red);box-shadow:0 4px 14px rgba(224,32,63,.4)}
 .st-tag{left:auto;right:10px;background:#F5B54A;color:#1a1204;box-shadow:none}
 .st-tag.out{background:#3A3B42;color:#E4E5EA}
@@ -2088,7 +2089,7 @@ function msgFor(p, vi){
   const v = p.v[vi||0];
   const pr = unitPrice(p, vi||0, 1);
   return pr!=null
-    ? "Olá, equipe Virtus! Vi no catálogo e quero comprar o " + p.nome + " " + v[0] + " (" + brl(pr) + (BLK && blackTiers(p, vi||0) ? ", preço da Black" : "") + ")." +
+    ? "Olá, equipe Virtus! Vi no catálogo e quero comprar o " + p.nome + " " + v[0] + " (" + brl(pr) + (BLK && blackTiers(p, vi||0) && blackTiers(p, vi||0)[0] < priceOf(p, vi||0) ? ", preço da Black" : "") + ")." +
       (BLK && (blackTiers(p, vi||0)||[]).length > 1 ? " Progressivo da Black: " + blackTiers(p, vi||0).map((t,k)=>(k+1)+(k===2?"+":"")+" un "+brl(t)+" cada").join(" · ") + "." : "")
     : "Olá, equipe Virtus! Vi no catálogo e quero saber valor e disponibilidade do " + p.nome + " " + v[0] + ".";
 }
@@ -2253,8 +2254,9 @@ catalog.innerHTML = CATS.map(c=>{
         p.v.forEach((v,i)=>{ if(!orderable(p,i) || !blackTiers(p,i)) return; const b = unitPrice(p,i,1); if(!best || b < best.b) best = {i, b, t:priceOf(p,i), tiers:blackTiers(p,i)}; });
         if(best){
           const multi = p.v.filter((v,i)=>orderable(p,i)).length > 1;
-          priceHTML = '<p class="price bf"><small>'+(multi?'Black · a partir de':'Preço Black')+'</small><s>'+brl(best.t)+'</s>'+brl(best.b)+'</p>' +
-            (best.tiers.length > 1 ? '<p class="tier">'+brl(best.tiers[best.tiers.length-1])+'/un levando '+best.tiers.length+'</p>' : '');
+          const cut = best.b < best.t;
+          priceHTML = '<p class="price'+(cut?' bf':'')+'"><small>'+(cut?(multi?'Black · a partir de':'Preço Black'):(multi?'a partir de':'1 unidade'))+'</small>'+(cut?'<s>'+brl(best.t)+'</s>':'')+brl(best.b)+'</p>' +
+            (best.tiers.length > 1 ? '<p class="tier">'+best.tiers.slice(1).map((t,k)=>'<b>'+brl(t)+'</b>/un levando '+(k+2)+(k+2===3?'+':'')).join('<br>')+'</p>' : '');
           const pct = Math.max(...p.v.map((v,i)=>orderable(p,i)?offPct(p,i):0));
           const prog = p.v.some((v,i)=>orderable(p,i) && (blackTiers(p,i)||[]).length > 1);
           bfTag = '<span class="bf-tag">'+(prog?'até ':'')+'-'+pct+'%</span>';
@@ -2380,7 +2382,7 @@ function openProduct(slug){
     document.getElementById("pdPrice").innerHTML = pr==null
       ? '<span class="eyebrow">Valor</span><b class="none">Sob consulta</b><span>fale com a equipe</span>'
       : tiers
-      ? '<span class="eyebrow">Preço Black Week</span><b><s>'+brl(pr)+'</s> <span class="pv">'+brl(tiers[0])+'</span></b>' +
+      ? '<span class="eyebrow">Preço Black Week</span><b>'+(tiers[0] < pr ? '<s>'+brl(pr)+'</s> ' : '')+'<span class="pv">'+brl(tiers[0])+'</span></b>' +
         (tiers.length>1 ? '<div class="tiers">'+tiers.map((t,k)=>'<span><small>'+(k+1)+(k===tiers.length-1&&tiers.length===3?'+':'')+' un</small>'+brl(t)+'<small>/un</small></span>').join("")+'</div>' : '<span>frasco de '+esc(v[0])+' · até 27/11</span>')
       : '<span class="eyebrow">Valor</span><b><span class="pv">'+brl(pr)+'</span></b><span>'+(isUpcoming(v)?upcomingLabel:soldOut(p,i)?'Esgotado no momento':'frasco de '+esc(v[0]))+'</span>';
     if(prevShown != null && sheet._lastSlug === p.slug) rollPrice(document.querySelector("#pdPrice .pv"), prevShown, nowShown);
@@ -2400,7 +2402,7 @@ function openProduct(slug){
     bAdd.onclick = () => { flySrc = document.querySelector("#pdMedia img, #pdMedia svg"); addToCart(p.slug, i); };
     const tz = orderable(p,i) ? blackTiers(p,i) : null;
     bl.textContent = (v[0] || p.nome) + (tz ? " · preço Black" : "");
-    bp.innerHTML = pr==null ? "Sob consulta" : isUpcoming(v) ? upcomingLabel : soldOut(p,i) ? "Esgotado" : tz ? '<s>'+brl(pr)+'</s> '+brl(tz[0]) : brl(pr);
+    bp.innerHTML = pr==null ? "Sob consulta" : isUpcoming(v) ? upcomingLabel : soldOut(p,i) ? "Esgotado" : tz && tz[0] < pr ? '<s>'+brl(pr)+'</s> '+brl(tz[0]) : brl(pr);
   }
   sheet.querySelectorAll(".var").forEach(b=>b.addEventListener("click", ()=>setVar(+b.dataset.i)));
   setVar(Math.max(0, firstOrderable(p)));

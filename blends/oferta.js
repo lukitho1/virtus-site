@@ -33,8 +33,8 @@
     var linhas = r.itens.map(function(x){
       var s = "• " + x.nome + " " + g(x.g) + (x.tabela ? " — tabela " + brl(x.tabela) : "");
       if(x.black){
-        s += " · individual na Black " + brl(x.black[0]);
-        if(x.black.length > 1) s += " (2 un " + brl(x.black[1]) + " cada" + (x.black[2] ? " · 3+ un " + brl(x.black[2]) + " cada" : "") + ")";
+        if(x.black.length > 1) s += " · individual na Black: " + (x.black[0] < x.tabela ? "1 un " + brl(x.black[0]) + " · " : "") + "2 un " + brl(x.black[1]) + " cada" + (x.black[2] ? " · 3+ un " + brl(x.black[2]) + " cada" : "");
+        else s += " · individual na Black " + brl(x.black[0]);
       }
       return s;
     });
