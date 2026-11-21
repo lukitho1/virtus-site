@@ -339,18 +339,6 @@ const records = [
     "photo": "ghk-cu-50"
   },
   {
-    "id": "glow",
-    "name": "GLOW",
-    "category": "Pele e estética",
-    "group": "pele",
-    "query": "GHK-Cu OR BPC-157 OR TB-500",
-    "summary": "Três componentes estudados em etapas da cicatrização",
-    "question": "Quais etapas da cicatrização já foram observadas nos estudos de cada componente do GLOW?",
-    "note": "Para interpretar uma associação comercial, confira a composição efetivamente estudada no artigo.",
-    "trial": null,
-    "photo": "glow"
-  },
-  {
     "id": "klow",
     "name": "KLOW",
     "category": "Pele e estética",
