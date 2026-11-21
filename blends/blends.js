@@ -177,7 +177,7 @@
       else box.innerHTML = ver + '<div class="price"><s>de ' + O.brl(r.de) + '</s><b>' + O.brl(r.por) + '</b><em>-' + r.off + '%</em></div>' +
         '<p class="save">Comprando individualmente na Black: <s>' + O.brl(r.somaBlack) + '</s><br>Economia de ' + O.brl(r.economia) + ' sobre a tabela</p>' +
         '<div class="tags">' + (r.frete ? '<span class="ok">Frete grátis</span>' : '') + '<span>Lote de 5 kits</span><span>Até 23/11, 23h59</span></div>';
-      if(tbl) tbl.innerHTML = '<div class="cmp-scroll"><table class="cmp"><thead><tr><th>Item</th><th>Tabela</th><th>Individual na Black<br><small>24 a 27/11</small></th></tr></thead><tbody>' +
+      if(tbl) tbl.innerHTML = '<div class="cmp-scroll"><table class="cmp"><thead><tr><th>Item</th><th>Tabela</th><th>Individual na Black<br><small>até 27/11</small></th></tr></thead><tbody>' +
         r.itens.map(function(x){
           var bl = x.black ? (x.black.length > 1 ? x.black.map(function(t, k){ return '<span>' + (k + 1) + (k === x.black.length - 1 && x.black.length === 3 ? '+' : '') + ' un <b>' + O.brl(t) + '</b></span>'; }).join("") : '<b>' + O.brl(x.black[0]) + '</b>') : '—';
           return '<tr><td><b>' + x.nome + '</b> ' + x.g.replace(/\s*\/\s*/g, "/") + '</td><td>' + (x.tabela ? O.brl(x.tabela) : '—') + '</td><td class="tiers">' + bl + '</td></tr>';
