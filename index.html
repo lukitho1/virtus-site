@@ -1047,7 +1047,7 @@ body:not(.rails) .megatype{display:none}
   <div class="bw-ticker" aria-hidden="true"><div class="bw-track" id="bwTrack"><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span><span>Black Week Virtus 2026<i>✦</i>De 20 a 27 de novembro<i>✦</i></span></div></div>
   <div class="wrap bw-phases" id="bwPhases">
     <span data-s="2026-11-20T12:00:00-03:00" data-e="2026-11-23T23:59:59-03:00">Blends · 20 a 23/11</span>
-    <span data-s="2026-11-24T00:00:00-03:00" data-e="2026-11-27T23:59:59-03:00">Individuais · 24 a 27/11</span>
+    <span data-s="2026-11-20T00:00:00-03:00" data-e="2026-11-27T23:59:59-03:00">Individuais · até 27/11</span>
     <span class="surp">Ofertas surpresa</span>
   </div>
   <div class="wrap bw-inner">
@@ -2188,7 +2188,7 @@ const general = wa("Olá, equipe Virtus! Vim pelo catálogo e quero ajuda para e
       const a = Date.parse(c.dataset.s), e = Date.parse(c.dataset.e);
       c.classList.toggle("on", now >= a && now <= e); c.classList.toggle("past", now > e);
     });
-    const msg = now < B ? "De 20 a 27 de novembro" : now < I ? "Blends no ar até 23/11" : now < F ? "Descontos progressivos até 27/11" : "Última chamada · até 23h59";
+    const msg = now < B ? "De 20 a 27 de novembro" : now < I ? "Blends até 23/11 · descontos individuais até 27/11" : now < F ? "Descontos progressivos até 27/11" : "Última chamada · até 23h59";
     if(msg !== last){ last = msg; track.innerHTML = ("<span>Black Week Virtus 2026<i>✦</i>" + msg + "<i>✦</i></span>").repeat(8); }
   }
   run(); setInterval(run, 30000);

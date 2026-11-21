@@ -5,7 +5,7 @@
    progressivo: preco por unidade levando 1, 2 e 3 ou mais (mesmo peptideo e gramatura)
    maxNivel:    limita o progressivo (ex.: so ate o preco de 2 unidades) */
 window.VIRTUS_BLACK = {
-  inicio: "2026-11-24T00:00:00-03:00",
+  inicio: "2026-11-20T00:00:00-03:00",
   fim:    "2026-11-27T23:59:59-03:00",
   freteGratisACada: 3,
   fixo: {
