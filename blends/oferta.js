@@ -24,7 +24,7 @@
   function resumo(v){
     var it = itens(v), somaT = 0, somaB = 0;
     it.forEach(function(x){ somaT += x.tabela || 0; somaB += x.black ? x.black[0] : (x.tabela || 0); });
-    return {itens: it, somaTabela: somaT, somaBlack: somaB, de: v.de, por: v.por, off: Math.round((1 - v.por / v.de) * 100), economia: v.de - v.por, frete: !!v.frete};
+    return {itens: it, somaTabela: somaT, somaBlack: somaB, de: v.de, por: v.por, off: Math.round((1 - v.por / v.de) * 100), economia: v.de - v.por, frete: v.itens.length >= 3};
   }
   function g(t){ return t.replace(/\s*\/\s*/g, "/"); }
   function msg(b, vi, bac){
