@@ -2926,10 +2926,8 @@ function renderCart(bump){
     if(bi >= 0) body.innerHTML += '<div class="cart-sug"><span>Para reconstituir você vai precisar de <b>Água BAC</b> ('+esc(bac.v[bi][0])+' · '+brl(priceOf(bac,bi))+').</span><button type="button" data-add="agua-bac" data-i="'+bi+'">'+ICON_PLUS+'Adicionar</button></div>';
   }
   let frete = "";
-  if(BLK && BLACK.freteGratisACada){
-    const k = BLACK.freteGratisACada, falta = k - (pep % k || (pep ? k : 0));
-    const pc = Math.min(pep, k) / k * 100;
-    frete = '<div class="ship'+(pep>=k?' ok':'')+'"><p>'+(pep >= k ? '<b>Frete grátis garantido</b> · '+pep+' peptídeos na lista' : 'Mais <b>'+(k-pep)+' peptídeo'+(k-pep>1?'s':'')+'</b> e o frete é grátis')+'</p><div class="ship-bar"><i style="width:'+pc+'%"></i></div></div>';
+  if(BLK && BLACK.freteGratisACada && pep >= BLACK.freteGratisACada){
+    frete = '<div class="ship ok"><p><b>Frete grátis garantido</b> · '+pep+' peptídeos na lista</p></div>';
   }
   foot.innerHTML = frete +
     (tab > tot ? '<div class="sum-row"><span>Sem desconto</span><s>'+brl(tab)+'</s></div><div class="sum-row save"><span>Economia Black</span><b>− '+brl(tab-tot)+'</b></div>' : '') +

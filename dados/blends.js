@@ -2,7 +2,6 @@
    Cada blend tem uma ou mais versoes. Em cada versao:
      itens: [["produto", "gramatura"], ...]  (iguais aos de dados/precos.js)
      de / por: preco "de/por" do blend (sem R$, sem ponto de milhar)
-     frete: true quando o blend tem frete gratis
    revelado: false esconde o blend do carrossel e das fichas.
    esgotado: true mostra "Esgotado" no card e na pagina e tira o botao de compra.
    foto: imagem em img/. pagina: blends/N/ (botao "Saiba mais"). */
@@ -25,7 +24,7 @@ window.VIRTUS_BLENDS = [
   {n: 5, nome: "Desempenho Cognitivo & Máxima Produtividade", curto: "Semax + Selank", frase: "Foco e memória com a mente calma.",
    foto: "blend-cognitivo.webp", revelado: true,
    versoes: [
-     {nome: "Essencial", itens: [["semax","10mg"],["selank","10mg"]], de: 1040, por: 830, frete: true},
+     {nome: "Essencial", itens: [["semax","10mg"],["selank","10mg"]], de: 1040, por: 830},
      {nome: "N-acetyl", itens: [["n-acetyl-semax","50mg"],["n-acetyl-selank","10mg"]], de: 2020, por: 1414}
    ]},
   {n: 6, nome: "Mulher 40+ & Vitalidade", curto: "MOTS-c + NAD+ + GHK-Cu", frase: "Metabolismo, energia e colágeno depois dos 40.",
@@ -36,7 +35,7 @@ window.VIRTUS_BLENDS = [
    ]},
   {n: 7, nome: "Intestino & Eixo Intestino-Cérebro", curto: "BPC-157 + KPV", frase: "Atuação sinérgica no eixo intestino-cérebro.",
    foto: "blend-bpc-kpv.webp", revelado: true,
-   versoes: [{nome: "Blend completo", itens: [["bpc-157","20mg"],["kpv","30mg"]], de: 1760, por: 1320, frete: true}]},
+   versoes: [{nome: "Blend completo", itens: [["bpc-157","20mg"],["kpv","30mg"]], de: 1760, por: 1320}]},
   {n: 8, nome: "Cabelo & Rejuvenescimento", curto: "GHK-Cu + AHK-Cu", frase: "Dois peptídeos de cobre: pele e folículo.",
    foto: "blend-cabelo.webp", esgotado: true, revelado: true,
    versoes: [{nome: "Blend completo", itens: [["ghk-cu","100mg"],["ahk-cu","100mg"]], de: 1240, por: 865}]}
