@@ -7,5 +7,6 @@ window.VIRTUS_ESTOQUE = {
   "tb-500":      {"10mg": "esgotado"},
   "ss-31":       {"50mg": "esgotado"},
   "ghk-cu":      {"50mg": "esgotado"},
+  "glow":        {"70mg": "esgotado"},
   "tesamorelin": {"10mg": {status: "ultimas", max: 2}}
 };
