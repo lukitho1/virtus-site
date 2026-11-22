@@ -8,5 +8,7 @@ window.VIRTUS_ESTOQUE = {
   "ss-31":       {"50mg": "esgotado"},
   "ghk-cu":      {"50mg": "esgotado"},
   "glow":        {"70mg": "esgotado"},
+  "kpv":         {"30mg": "esgotado"},
+  "nad":         {"1000mg": "esgotado"},
   "tesamorelin": {"10mg": {status: "ultimas", max: 2}}
 };
