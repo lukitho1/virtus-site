@@ -24,17 +24,17 @@ window.VIRTUS_BLACK = {
     "retatrutida":      {"30mg": 1240},
     "thymosin-alpha-1": {"10mg": 520}
   },
-  /* 1 unidade = preco de tabela; 2 unidades = 20% off; 3 ou mais = 30% off (preco por unidade) */
+  /* 1 unidade = 10% off; 2 unidades = 20% off; 3 ou mais = 30% off (preco por unidade) */
   progressivo: {
-    "mots-c":         {"40mg": [950, 760, 665]},
-    "ipamorelin-cjc": {"10mg / 10mg": [850, 680, 595]},
-    "bpc-157":        {"10mg": [590, 470, 410]},
-    "retatrutida":    {"40mg": [1850, 1480, 1295]},
-    "tirzepatida":    {"60mg": [1090, 870, 760]},
-    "klow":           {"80mg": [990, 790, 690]},
-    "tesamorelin":    {"10mg": [690, 550, 480], "20mg": [990, 790, 690]},
-    "semax":          {"10mg": [550, 440, 385]},
-    "selank":         {"10mg": [490, 390, 340]}
+    "mots-c":         {"40mg": [855, 760, 665]},
+    "ipamorelin-cjc": {"10mg / 10mg": [765, 680, 595]},
+    "bpc-157":        {"10mg": [531, 470, 410]},
+    "retatrutida":    {"40mg": [1665, 1480, 1295]},
+    "tirzepatida":    {"60mg": [981, 870, 760]},
+    "klow":           {"80mg": [891, 790, 690]},
+    "tesamorelin":    {"10mg": [621, 550, 480], "20mg": [891, 790, 690]},
+    "semax":          {"10mg": [495, 440, 385]},
+    "selank":         {"10mg": [441, 390, 340]}
   },
   maxNivel: {}
 };
