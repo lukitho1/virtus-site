@@ -26,7 +26,7 @@ window.VIRTUS_BLACK = {
   },
   /* 1 unidade = preco de tabela; 2 unidades = 20% off; 3 ou mais = 30% off (preco por unidade) */
   progressivo: {
-    "mots-c":         {"40mg": [950, 760, 665]},
+    "mots-c":         {"40mg": [855, 760, 665]},
     "ipamorelin-cjc": {"10mg / 10mg": [850, 680, 595]},
     "bpc-157":        {"10mg": [590, 470, 410]},
     "retatrutida":    {"40mg": [1850, 1480, 1295]},
