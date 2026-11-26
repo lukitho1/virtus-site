@@ -1039,6 +1039,23 @@ body:not(.rails) .megatype{display:none}
   .bw-bl-end{justify-content:center;text-align:center}
 }
 @media (prefers-reduced-motion:reduce){.kit48-tag b{animation:none}}
+/* Oferta relampago: 2 Retatrutida 40mg + 3 Tirzepatida 60mg (so 26/11, ate 23h59) */
+.rtz .kit48-card{grid-template-columns:minmax(0,320px) minmax(0,1fr)}
+.rtz .kit48-art img{aspect-ratio:9/16}
+.rtz-list{display:grid;gap:12px;margin-top:18px}
+.rtz-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px 18px;border-radius:16px;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16)}
+.rtz-item h4{margin:0;font-family:var(--display);font-weight:900;font-size:clamp(19px,2.2vw,24px);line-height:1.1;color:#fff}
+.rtz-item h4 small{display:block;margin-bottom:3px;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--silver)}
+.rtz-item .kit48-price{margin-top:8px}
+.rtz-item .kit48-price b{font-size:clamp(32px,4vw,44px)}
+.rtz-item .kit48-tags{margin-top:8px}
+.rtz-item .kit48-buy{margin-top:0;min-height:48px;padding:0 20px;font-size:15px}
+@media (max-width:680px){
+  .rtz .kit48-card{grid-template-columns:1fr}
+  .rtz .kit48-art{max-width:280px}
+  .rtz-item{grid-template-columns:1fr;text-align:center}
+  .kit48.rtz .bw-count{justify-content:center!important}
+}
 </style>
 </head>
 <body>
@@ -1098,6 +1115,35 @@ body:not(.rails) .megatype{display:none}
         <div class="bw-count" id="kit48Count" aria-live="off"></div>
         <a class="kit48-buy" id="kit48Wa" target="_blank" rel="noopener"></a>
         <p class="kit48-note">Válido até 25/11, às 23h59, ou enquanto durarem os 10 kits.</p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap kit48 rtz" id="rtz" hidden>
+    <div class="kit48-card">
+      <a class="kit48-art" id="rtzImg" target="_blank" rel="noopener" aria-label="Quero a oferta relâmpago no WhatsApp"><img src="img/oferta-reta-tirz-black.webp" alt="Oferta relâmpago: 2 frascos de Retatrutida 40mg de R$ 3.700 por R$ 2.590 e 3 frascos de Tirzepatida 60mg de R$ 3.270 por R$ 1.962" width="720" height="1280" fetchpriority="high"></a>
+      <div>
+        <span class="kit48-tag"><b></b>Oferta relâmpago · só hoje</span>
+        <h3>Retatrutida <em>e</em><br>Tirzepatida</h3>
+        <div class="rtz-list">
+          <div class="rtz-item">
+            <div>
+              <h4><small>2 frascos de</small>Retatrutida 40mg</h4>
+              <div class="kit48-price"><s>de R$ 3.700</s><b>R$ 2.590</b><em>-30%</em></div>
+              <div class="kit48-tags"><span>Até 8 meses de tratamento</span></div>
+            </div>
+            <a class="kit48-buy" id="rtzWaR" target="_blank" rel="noopener"></a>
+          </div>
+          <div class="rtz-item">
+            <div>
+              <h4><small>3 frascos de</small>Tirzepatida 60mg</h4>
+              <div class="kit48-price"><s>de R$ 3.270</s><b>R$ 1.962</b><em>-40%</em></div>
+              <div class="kit48-tags"><span>+ de 1 ano de tratamento</span></div>
+            </div>
+            <a class="kit48-buy" id="rtzWaT" target="_blank" rel="noopener"></a>
+          </div>
+        </div>
+        <div class="bw-count" id="rtzCount" aria-live="off"></div>
+        <p class="kit48-note">Válido só hoje, 26/11, até as 23h59.</p>
       </div>
     </div>
   </div>
@@ -2255,6 +2301,46 @@ const general = wa("Olá, equipe Virtus! Vim pelo catálogo e quero ajuda para e
     const hh = Math.floor(d/3600); d %= 3600; const mm = Math.floor(d/60), ss = d%60;
     cnt.innerHTML = '<small>A oferta termina em</small>' + [[hh,'horas'],[mm,'min'],[ss,'seg']].map(x => '<div><b>' + p(x[0]) + '</b><span>' + x[1] + '</span></div>').join('');
   }
+  box.hidden = false;
+  const t = setInterval(tick, 1000); tick();
+})();
+
+/* Oferta relampago: 2 Retatrutida 40mg + 3 Tirzepatida 60mg so 26/11 ate 23h59 (some sozinha depois) */
+(function(){
+  const box = document.getElementById("rtz"); if(!box) return;
+  const START = Date.parse("2026-11-26T00:00:00-03:00"), END = Date.parse("2026-11-26T23:59:59-03:00");
+  if(Date.now() > END) return;
+  const OF = {
+    R: {vials: 2, origem: "oferta-retatrutida", msg: "Olá, equipe Virtus! Vim pelo site e quero a oferta relâmpago de 2 frascos de Retatrutida 40mg por R$ 2.590 (Black Week)."},
+    T: {vials: 3, origem: "oferta-tirzepatida", msg: "Olá, equipe Virtus! Vim pelo site e quero a oferta relâmpago de 3 frascos de Tirzepatida 60mg por R$ 1.962 (Black Week)."}
+  };
+  const MSG_ALL = "Olá, equipe Virtus! Vim pelo site e quero saber da oferta relâmpago de Retatrutida 40mg e Tirzepatida 60mg (Black Week).";
+  const img = document.getElementById("rtzImg"), cnt = document.getElementById("rtzCount");
+  img.href = wa(MSG_ALL);
+  img.addEventListener("click", () => track("whatsapp", {origem: "oferta-reta-tirz"}));
+  Object.keys(OF).forEach(k => {
+    const o = OF[k], btn = document.getElementById("rtzWa" + k);
+    btn.innerHTML = WA_ICON + "Quero no WhatsApp";
+    btn.href = wa(o.msg);
+    btn.addEventListener("click", e => {
+      track("whatsapp", {origem: o.origem});
+      if(!window.VirtusBAC) return;
+      e.preventDefault();
+      window.VirtusBAC.ask({vials: o.vials, confirm: "Adicionar e enviar no WhatsApp", confirmEmpty: "Enviar no WhatsApp sem água", skip: "Não, enviar sem água BAC", done: sel => {
+        const ag = window.VirtusBAC.linhas(sel);
+        const url = wa(o.msg + (ag.txt ? "\n\nÁgua BAC para reconstituir:\n" + ag.txt : ""));
+        const w = window.open(url, "_blank"); if(w) w.opener = null; else location.href = url;
+      }});
+    });
+  });
+  const p = n => String(n).padStart(2,"0");
+  function tick(){
+    let d = Math.floor((END - Date.now())/1000);
+    if(d < 0){ box.hidden = true; clearInterval(t); return; }
+    const hh = Math.floor(d/3600); d %= 3600; const mm = Math.floor(d/60), ss = d%60;
+    cnt.innerHTML = '<small>A oferta termina em</small>' + [[hh,'horas'],[mm,'min'],[ss,'seg']].map(x => '<div><b>' + p(x[0]) + '</b><span>' + x[1] + '</span></div>').join('');
+  }
+  if(Date.now() < START && !/simular=oferta/.test(location.search)) return;
   box.hidden = false;
   const t = setInterval(tick, 1000); tick();
 })();
