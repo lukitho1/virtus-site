@@ -30,7 +30,7 @@ window.VIRTUS_BLACK = {
     "ipamorelin-cjc": {"10mg / 10mg": [765, 680, 595]},
     "bpc-157":        {"10mg": [531, 470, 410]},
     "retatrutida":    {"40mg": [1665, 1480, 1295]},
-    "tirzepatida":    {"60mg": [981, 981, 760]},  /* sem o nivel de 20%: 1 e 2 un a R$ 981, 3+ a R$ 760 */
+    "tirzepatida":    {"60mg": [981]},  /* so 10% off, em qualquer quantidade (sem 20% e 30%) */
     "klow":           {"80mg": [891, 790, 690]},
     "tesamorelin":    {"10mg": [621, 550, 480], "20mg": [891, 790, 690]},
     "semax":          {"10mg": [495, 440, 385]},
