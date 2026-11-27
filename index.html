@@ -2092,6 +2092,7 @@ function blackTiers(p, vi){
   const f = (BLACK.fixo[p.slug]||{})[g];
   return f != null ? [f] : null;
 }
+function tierGroups(t){ const g = []; t.forEach((v,k)=>{ const last = g[g.length-1]; if(last && last.v === v) last.to = k+1; else g.push({from:k+1, to:k+1, v}); }); return g.map((x,k)=>({lbl: (x.from === x.to ? x.from : x.from + "–" + x.to) + (k === g.length-1 && t.length === 3 && x.to === 3 ? "+" : ""), v: x.v})); }
 function unitPrice(p, vi, q){ const t = blackTiers(p, vi); return t ? t[Math.min(q||1, t.length)-1] : priceOf(p, vi); }
 function stockOf(p, vi){ const x = (ESTOQUE[p.slug]||{})[p.v[vi][0]]; return !x ? null : typeof x === "string" ? {status:x} : x; }
 const soldOut = (p, vi) => (stockOf(p, vi)||{}).status === "esgotado";
@@ -2187,7 +2188,7 @@ function msgFor(p, vi){
   const pr = unitPrice(p, vi||0, 1);
   return pr!=null
     ? "Olá, equipe Virtus! Vi no catálogo e quero comprar o " + p.nome + " " + v[0] + " (" + brl(pr) + (BLK && blackTiers(p, vi||0) && blackTiers(p, vi||0)[0] < priceOf(p, vi||0) ? ", preço da Black" : "") + ")." +
-      (BLK && (blackTiers(p, vi||0)||[]).length > 1 ? " Progressivo da Black: " + blackTiers(p, vi||0).map((t,k)=>(k+1)+(k===2?"+":"")+" un "+brl(t)+" cada").join(" · ") + "." : "")
+      (BLK && (blackTiers(p, vi||0)||[]).length > 1 ? " Progressivo da Black: " + tierGroups(blackTiers(p, vi||0)).map(x=>x.lbl+" un "+brl(x.v)+" cada").join(" · ") + "." : "")
     : "Olá, equipe Virtus! Vi no catálogo e quero saber valor e disponibilidade do " + p.nome + " " + v[0] + ".";
 }
 
@@ -2424,7 +2425,7 @@ catalog.innerHTML = CATS.map(c=>{
           const multi = p.v.filter((v,i)=>orderable(p,i)).length > 1;
           const cut = best.b < best.t;
           priceHTML = '<p class="price'+(cut?' bf':'')+'"><small>'+(cut?(multi?'Black · a partir de':'Preço Black'):(multi?'a partir de':'1 unidade'))+'</small>'+(cut?'<s>'+brl(best.t)+'</s>':'')+brl(best.b)+'</p>' +
-            (best.tiers.length > 1 ? '<p class="tier">'+best.tiers.slice(1).map((t,k)=>'<b>'+brl(t)+'</b>/un levando '+(k+2)+(k+2===3?'+':'')).join('<br>')+'</p>' : '');
+            (best.tiers.length > 1 ? '<p class="tier">'+best.tiers.map((t,k)=>k && t < best.tiers[k-1] ? '<b>'+brl(t)+'</b>/un levando '+(k+1)+(k+1===3?'+':'') : '').filter(Boolean).join('<br>')+'</p>' : '');
           const pct = Math.max(...p.v.map((v,i)=>orderable(p,i)?offPct(p,i):0));
           const prog = p.v.some((v,i)=>orderable(p,i) && (blackTiers(p,i)||[]).length > 1);
           bfTag = '<span class="bf-tag">'+(prog?'até ':'')+'-'+pct+'%</span>';
@@ -2551,7 +2552,7 @@ function openProduct(slug){
       ? '<span class="eyebrow">Valor</span><b class="none">Sob consulta</b><span>fale com a equipe</span>'
       : tiers
       ? '<span class="eyebrow">Preço Black Week</span><b>'+(tiers[0] < pr ? '<s>'+brl(pr)+'</s> ' : '')+'<span class="pv">'+brl(tiers[0])+'</span></b>' +
-        (tiers.length>1 ? '<div class="tiers">'+tiers.map((t,k)=>'<span><small>'+(k+1)+(k===tiers.length-1&&tiers.length===3?'+':'')+' un</small>'+brl(t)+'<small>/un</small></span>').join("")+'</div>' : '<span>frasco de '+esc(v[0])+' · até 27/11</span>')
+        (tiers.length>1 ? '<div class="tiers">'+tierGroups(tiers).map(x=>'<span><small>'+x.lbl+' un</small>'+brl(x.v)+'<small>/un</small></span>').join("")+'</div>' : '<span>frasco de '+esc(v[0])+' · até 27/11</span>')
       : '<span class="eyebrow">Valor</span><b><span class="pv">'+brl(pr)+'</span></b><span>'+(isUpcoming(v)?upcomingLabel:soldOut(p,i)?'Esgotado no momento':'frasco de '+esc(v[0]))+'</span>';
     if(prevShown != null && sheet._lastSlug === p.slug) rollPrice(document.querySelector("#pdPrice .pv"), prevShown, nowShown);
     sheet._lastPrice = nowShown; sheet._lastSlug = p.slug;
@@ -3082,7 +3083,8 @@ function renderCart(bump){
   let tot = 0, tab = 0, pep = 0;
   body.innerHTML = cart.map((it, i)=>{
     const l = line(it); tot += l.tot; tab += l.tab; if(l.p.cat!=="insumos") pep += it.q;
-    const next = l.tiers && l.tiers.length > 1 && it.q < l.tiers.length ? '<small class="nudge">Levando '+(it.q+1)+', cada um sai por '+brl(l.tiers[it.q])+'</small>' : '';
+    const nx = l.tiers && l.tiers.length > 1 ? l.tiers.findIndex((t,k)=>k >= it.q && t < l.tiers[Math.min(it.q, l.tiers.length)-1]) : -1;
+    const next = nx > -1 ? '<small class="nudge">Levando '+(nx+1)+', cada um sai por '+brl(l.tiers[nx])+'</small>' : '';
     return '<div class="ci"><span class="ci-img">'+mediaHTML(l.p, l.vi).replace(' loading="lazy"','')+'</span><div class="ci-info"><b>'+esc(l.p.nome)+' <span>'+esc(it.g)+'</span></b>' +
       '<small>'+(l.u < l.t ? '<s>'+brl(l.t)+'</s> ' : '')+brl(l.u)+'/un</small>'+next+
       '<div class="qty"><button type="button" data-q="'+i+'" data-d="-1" aria-label="Diminuir">−</button><span>'+it.q+'</span><button type="button" data-q="'+i+'" data-d="1" aria-label="Aumentar">+</button></div></div>' +
