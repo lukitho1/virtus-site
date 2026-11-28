@@ -10,14 +10,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://virtusbiohacking.com/">
 <meta property="og:site_name" content="Virtus Peptides">
-<meta property="og:image" content="https://virtusbiohacking.com/img/og-black.jpg">
-<meta property="og:image:secure_url" content="https://virtusbiohacking.com/img/og-black.jpg">
-<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image" content="https://virtusbiohacking.com/img/og.png">
+<meta property="og:image:secure_url" content="https://virtusbiohacking.com/img/og.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Black Week Virtus 2026, de 20 a 27 de novembro">
+<meta property="og:image:alt" content="Catálogo Virtus Peptides">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://virtusbiohacking.com/img/og-black.jpg">
+<meta name="twitter:image" content="https://virtusbiohacking.com/img/og.png">
 <meta name="theme-color" content="#050507">
 <link rel="icon" type="image/png" href="img/marca.png">
 <link rel="apple-touch-icon" href="img/icone-180.png">
@@ -523,6 +523,14 @@ footer .wrap{padding-block:34px 90px;display:grid;gap:22px}
 .bw-cta{margin-top:20px}
 @media (max-width:640px){.bw-inner{grid-template-columns:1fr;justify-items:center;text-align:center}.bw-count{justify-content:center}}
 @media (prefers-reduced-motion:reduce){.bw-track,.bw-badge::before,.bw-badge img,.bw-tag b{animation:none}}
+/* Black encerrada: depois de 27/11 23h59 o banner vira um aviso */
+.bw.over .bw-ticker,.bw.over .bw-phases,.bw.over .kit48,.bw.over .bw-blends,.bw.over .bw-count,.bw.over .bw-cta{display:none!important}
+.bw.over .bw-badge{width:clamp(120px,15vw,170px)}
+.bw.over .bw-badge::before{display:none}
+.bw.over .bw-badge img{animation:none;filter:grayscale(.35);opacity:.9}
+.bw-end-msg{margin:14px 0 0;max-width:540px;color:var(--silver);font-size:15.5px;line-height:1.55}
+.bw.over .bw-inner{padding-top:clamp(22px,3.4vw,34px)!important;padding-bottom:clamp(22px,3.4vw,34px)}
+@media (max-width:680px){.bw-end-msg{margin-inline:auto;font-size:15px}}
 
 /* Black Week: carrossel de blends (antecipacao) */
 .bw-blends{padding-bottom:clamp(26px,4vw,40px)}
@@ -2156,9 +2164,16 @@ const general = wa("Olá, equipe Virtus! Vim pelo catálogo e quero ajuda para e
   const cnt = document.getElementById("bwCount");
   document.getElementById("bwWa").href = wa("Olá! Vim pelo catálogo e quero aproveitar a Black Week Virtus.");
   const p = n => String(n).padStart(2,"0");
+  function fim(){
+    box.classList.add("over"); box.hidden = false;
+    const h = box.querySelector(".bw-inner h2");
+    if(h) h.innerHTML = 'Black Friday<br><em>encerrada</em>';
+    if(cnt && !box.querySelector(".bw-end-msg")) cnt.insertAdjacentHTML("afterend", '<p class="bw-end-msg">A Black Week Virtus 2026 terminou em 27/11, às 23h59. Obrigado a todos que participaram! Os preços do catálogo já voltaram aos valores normais.</p>');
+    document.querySelectorAll('[data-mto="blackWeek"] small').forEach(x => x.textContent = "Encerrada");
+  }
   function tick(){
     const now = Date.now();
-    if(now > END){ box.hidden = true; clearInterval(t); return; }
+    if(now > END){ fim(); clearInterval(t); return; }
     const target = now < START ? START : END;
     let d = Math.max(0, Math.floor((target - now)/1000));
     const dd = Math.floor(d/86400); d %= 86400; const hh = Math.floor(d/3600); d %= 3600; const mm = Math.floor(d/60), ss = d%60;
